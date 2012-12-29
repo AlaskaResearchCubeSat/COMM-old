@@ -3,16 +3,6 @@ SYMBOLS BY NAME
 
     338e CODE       _Build_Packet       
     3100 ISR        _Buttons            
-<<<<<<< HEAD
-    3658 CODE       _RF_Receive_Packet  
-    359e CODE       _Radio_Read_Burst_Registers
-    3558 CODE       _Radio_Read_Registers
-    3612 CODE       _Radio_Read_Status  
-    349c CODE       _Radio_Strobe       
-    3506 CODE       _Radio_Write_Burst_Registers
-    34cc CODE       _Radio_Write_Registers
-    3406 CODE       _Reset_Radios       
-=======
     3660 CODE       _RF_Receive_Packet  
     35a6 CODE       _Radio_Read_Burst_Registers
     3560 CODE       _Radio_Read_Registers
@@ -21,37 +11,23 @@ SYMBOLS BY NAME
     350e CODE       _Radio_Write_Burst_Registers
     34d4 CODE       _Radio_Write_Registers
     340e CODE       _Reset_Radios       
->>>>>>> 255_byte code, transmit
     131e UDATA0     _RxBuf              
     1119 UDATA0     _RxBuffer           
     1114 UDATA0     _RxBufferLen        
     1108 UDATA0     _RxBufferPos        
     1106 UDATA0     _RxBytesRemaining   
     1104 UDATA0     _RxFIFOLen          
-<<<<<<< HEAD
-    33b4 CODE       _SPI_Setup          
-    33a6 CODE       _TI_CC_Wait         
-=======
     33bc CODE       _SPI_Setup          
     33ae CODE       _TI_CC_Wait         
->>>>>>> 255_byte code, transmit
     132a UDATA0     _TxBuf              
     121b UDATA0     _TxBuffer           
     110c UDATA0     _TxBufferPos        
     110a UDATA0     _TxBytesRemaining   
-<<<<<<< HEAD
-    3dc6 CODE       _TxChar             
-    3278 ISR        _USB_TX             
-    32ba ISR        _USB_rx             
-    3128 ISR        _WATCHDOG           
-    36d4 CODE       _Write_RF_Settings  
-=======
     3dce CODE       _TxChar             
     3278 ISR        _USB_TX             
     32ba ISR        _USB_rx             
     3128 ISR        _WATCHDOG           
     36dc CODE       _Write_RF_Settings  
->>>>>>> 255_byte code, transmit
     1100            ___RAM_Address      
     2000            ___RAM_Size         
     1100 IDATA0     ___begin_IDATA0     
@@ -64,26 +40,6 @@ SYMBOLS BY NAME
     1b30 UDATA0     ___format_extender  
     337e CONST      ___hex_lc           
     336e CONST      ___hex_uc           
-<<<<<<< HEAD
-    3e0a CODE       ___int16_mul        
-    3f14 CODE       ___pre_padding      
-    3ef6 CODE       ___print_padding    
-    443c CODE       ___printf_lock      
-    443e CODE       ___printf_unlock    
-    3eac CODE       ___putc             
-    3d66 CODE       ___putchar          
-    3274 ISR        ___thunk___putchar  
-    3e20 CODE       ___uint16_div       
-    3e38 CODE       ___uint16_mod       
-    3f3e CODE       ___vfprintf         
-    1115 UDATA0     _button             
-    1110 UDATA0     _count              
-    1112 UDATA0     _data_length        
-    3d76 CODE       _initUART           
-    3a90 CODE       _main               
-    3e50 CODE       _memcpy             
-    3e60 CODE       _memset             
-=======
     3e12 CODE       ___int16_mul        
     3f1c CODE       ___pre_padding      
     3efe CODE       ___print_padding    
@@ -102,20 +58,13 @@ SYMBOLS BY NAME
     3a98 CODE       _main               
     3e58 CODE       _memcpy             
     3e68 CODE       _memset             
->>>>>>> 255_byte code, transmit
     1102 IDATA0     _paTableLen         
     1100 IDATA0     _paTable_CC1101     
     1101 IDATA0     _paTable_CC2500     
     31e0 ISR        _port2_ISR          
-<<<<<<< HEAD
-    3e70 CODE       _printf             
-    110e UDATA0     _state              
-    3e40 CODE       _strlen             
-=======
     3e78 CODE       _printf             
     110e UDATA0     _state              
     3e48 CODE       _strlen             
->>>>>>> 255_byte code, transmit
     1117 UDATA0     _temp_count1        
     1116 UDATA0     _temp_count2        
     1118 UDATA0     _uhf                
@@ -162,36 +111,6 @@ SYMBOLS BY VALUE
     336e CONST      ___hex_uc           
     337e CONST      ___hex_lc           
     338e CODE       _Build_Packet       
-<<<<<<< HEAD
-    33a6 CODE       _TI_CC_Wait         
-    33b4 CODE       _SPI_Setup          
-    3406 CODE       _Reset_Radios       
-    349c CODE       _Radio_Strobe       
-    34cc CODE       _Radio_Write_Registers
-    3506 CODE       _Radio_Write_Burst_Registers
-    3558 CODE       _Radio_Read_Registers
-    359e CODE       _Radio_Read_Burst_Registers
-    3612 CODE       _Radio_Read_Status  
-    3658 CODE       _RF_Receive_Packet  
-    36d4 CODE       _Write_RF_Settings  
-    3a90 CODE       _main               
-    3d66 CODE       ___putchar          
-    3d76 CODE       _initUART           
-    3dc6 CODE       _TxChar             
-    3e0a CODE       ___int16_mul        
-    3e20 CODE       ___uint16_div       
-    3e38 CODE       ___uint16_mod       
-    3e40 CODE       _strlen             
-    3e50 CODE       _memcpy             
-    3e60 CODE       _memset             
-    3e70 CODE       _printf             
-    3eac CODE       ___putc             
-    3ef6 CODE       ___print_padding    
-    3f14 CODE       ___pre_padding      
-    3f3e CODE       ___vfprintf         
-    443c CODE       ___printf_lock      
-    443e CODE       ___printf_unlock    
-=======
     33ae CODE       _TI_CC_Wait         
     33bc CODE       _SPI_Setup          
     340e CODE       _Reset_Radios       
@@ -220,4 +139,3 @@ SYMBOLS BY VALUE
     3f46 CODE       ___vfprintf         
     4444 CODE       ___printf_lock      
     4446 CODE       ___printf_unlock    
->>>>>>> 255_byte code, transmit

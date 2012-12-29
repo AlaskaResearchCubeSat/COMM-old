@@ -11,16 +11,10 @@ int i;
 TxBufferPos = 0;
 TxBuffer[0] = data_length;                  // First byte is length of packet
 for (i = 1; i < data_length; i++)      // Fill up buffer with data
-<<<<<<< HEAD
-    TxBuffer[i] = i;
-
-}
-
-=======
     TxBuffer[i] = 0x0F;
-TxBuffer[data_length-1] = 0xF0;
+TxBuffer[data_length - 1] = 0xF0;
 }
->>>>>>> 255_byte code, transmit
+
 void TI_CC_Wait(unsigned int cycles)
 {
   while(cycles>15)                          // 15 cycles consumed by overhead
@@ -318,7 +312,11 @@ void Write_RF_Settings(void)
 // TX power = 0
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 1);   // Asserts when sync word has been sent / received, and de-asserts at the end of the packet. 
 Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x29, 1);   // Associated to the RX FIFO: Asserts when RX FIFO is filled at or above the RX FIFO threshold. De-asserts when RX FIFO is drained below the same threshold.
+<<<<<<< HEAD
 Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x0F, 1);   // FIFO Threshold: 1 byte in TX FIFO and 63 in RX FIFO
+=======
+Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x07, 1);   // FIFO Threshold: 1 byte in TX FIFO and 63 in RX FIFO
+>>>>>>> 255_byte code, transmit
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,  0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_FSCTRL1,  0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ2,    0x10, 1);
@@ -326,13 +324,8 @@ Radio_Write_Registers(TI_CCxxx0_FREQ1,    0xC4, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ0,    0xEC, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG4,  0xF8, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG3,  0x83, 1);
-<<<<<<< HEAD
-Radio_Write_Registers(TI_CCxxx0_MDMCFG2,  0x03, 1);
-Radio_Write_Registers(TI_CCxxx0_MDMCFG1,  0x22, 1);
-=======
 Radio_Write_Registers(TI_CCxxx0_MDMCFG2,  0x03, 1); // High byte: 0000 is 2-FSK and 0001 is GFSK; Low byte: 0000 no preamble/sync, 0001 15/16 sync words detected, 0011 30/32 sync words
 Radio_Write_Registers(TI_CCxxx0_MDMCFG1,  0x22, 1); // High byte: 0010 is 4 bytes of preamble, 0100 is 8 bytes of preamble
->>>>>>> 255_byte code, transmit
 Radio_Write_Registers(TI_CCxxx0_MDMCFG0,  0xF8, 1);
 Radio_Write_Registers(TI_CCxxx0_CHANNR,   0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_DEVIATN,  0x15, 1);

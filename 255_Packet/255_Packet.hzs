@@ -70,6 +70,9 @@
  <Watch4>
   <Watches active="0" update="Never" />
  </Watch4>
- <Files/>
+ <Files>
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\255_Packet\functions.c" y="314" path="C:\Users\Standard\Documents\GitHub\COMM\255_Packet\functions.c" left="0" selected="0" name="unnamed" top="300" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\255_Packet\main.c" y="81" path="C:\Users\Standard\Documents\GitHub\COMM\255_Packet\main.c" left="0" selected="1" name="unnamed" top="72" />
+ </Files>
  <MSP430CrossStudioWindow activeProject="255_Packet" autoConnectTarget="Board 2" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\GitHub\COMM\255_Packet" fileDialogDefaultFilter="" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>

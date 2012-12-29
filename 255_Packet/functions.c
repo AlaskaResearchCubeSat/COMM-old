@@ -11,16 +11,10 @@ int i;
 TxBufferPos = 0;
 TxBuffer[0] = data_length;                  // First byte is length of packet
 for (i = 1; i < data_length; i++)      // Fill up buffer with data
-<<<<<<< HEAD
-    TxBuffer[i] = i;
-
-}
-
-=======
     TxBuffer[i] = 0x0F;
-TxBuffer[data_length-1] = 0xF0;
+TxBuffer[data_length - 1] = 0xF0;
 }
->>>>>>> 255_byte code, transmit
+
 void TI_CC_Wait(unsigned int cycles)
 {
   while(cycles>15)                          // 15 cycles consumed by overhead
@@ -318,11 +312,7 @@ void Write_RF_Settings(void)
 // TX power = 0
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 1);   // Asserts when sync word has been sent / received, and de-asserts at the end of the packet. 
 Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x29, 1);   // Associated to the RX FIFO: Asserts when RX FIFO is filled at or above the RX FIFO threshold. De-asserts when RX FIFO is drained below the same threshold.
-<<<<<<< HEAD
-Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x0F, 1);   // FIFO Threshold: 1 byte in TX FIFO and 63 in RX FIFO
-=======
 Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x07, 1);   // FIFO Threshold: 1 byte in TX FIFO and 63 in RX FIFO
->>>>>>> 255_byte code, transmit
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,  0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_FSCTRL1,  0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ2,    0x10, 1);

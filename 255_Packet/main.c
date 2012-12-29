@@ -80,11 +80,7 @@ void main(void)
 
   P7OUT = 0;
 
-<<<<<<< HEAD
-  data_length = 250;
-=======
   data_length = 100;
->>>>>>> 255_byte code, transmit
  // RxBufferLen = sizeof(RxBuffer);          // Length of packet to be received  This does not work for some reason
 
   RxBufferLen = 255;
@@ -104,17 +100,10 @@ void main(void)
           P2IFG = 0;                                                                         // Clear flags
           P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
           Build_Packet(data_length);
-<<<<<<< HEAD
-          if (TxBytesRemaining > 61)
-          {
-              count = 61;
-              TxBytesRemaining = TxBytesRemaining - 61;
-=======
           if (TxBytesRemaining > 64)
           {
               count = 64;
               TxBytesRemaining = TxBytesRemaining - 64;
->>>>>>> 255_byte code, transmit
           }
           else
           {
@@ -129,17 +118,10 @@ void main(void)
       case TX_RUNNING:
           if (TxBytesRemaining > 0) 
           {
-<<<<<<< HEAD
-             if (TxBytesRemaining > 61)
-             {
-                 count = 61;
-                 TxBytesRemaining = TxBytesRemaining - 61;
-=======
              if (TxBytesRemaining > 30)
              {
                  count = 30;
                  TxBytesRemaining = TxBytesRemaining - 30;
->>>>>>> 255_byte code, transmit
              }
              else
              {
