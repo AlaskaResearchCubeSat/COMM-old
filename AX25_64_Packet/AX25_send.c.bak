@@ -1,0 +1,81 @@
+#include <functions.h>
+#include <include.h>
+
+// *****************************************************************
+char TX_Header[16] = {0xAE, 0x98, 0x0E, 0x86, 0xB0, 0x88, 0xE0, 0x96, 0x98, 0x04, 0xA8, 0xAA, 0x40, 0x61, 0x3E, 0xF0};
+\  
+  
+  
+//char TX_Header[16] = {0x90, 0x84, 0x72, 0x8A, 0x8E, 0x40, 0x60, 0x90, 0x84, 0x72, 0x8A, 0x8E, 0x62, 0x61, 0x03, 0xF0};
+// Symbol, Ascii (HEX), Ascii (BIN), Shifted (HEX)
+// H, 48, 0100 1000, 90
+// B, 42, 0100 0010, 84
+// 9, 39, 0011 1001, 72
+// E, 45, 0100 0101, 8A
+// G, 47, 0100 0111, 8E
+//  , 20, 0010 0000, 40
+
+int size_header = sizeof(TX_Header);
+
+// *****************************************************************
+// Copy the data bytes into the internal memory
+// length: length of the data bytes
+void TX_prepareFrame(char *data, unsigned int length_data) {
+ 
+  int i;
+  unsigned short TX_Data_length = (unsigned short) (length_data + 20);
+  
+   _BIS_SR(GIE); 					// Allow interrupt nesting to allow RX!
+  
+  if (length_data>DATA_MAX) length_data=DATA_MAX;       // length limitation not required. char < 257
+  
+  TX_bytePointerMax = length_data+20;   		// frame size is data size + 20 bytes
+  
+  // Send a flag first
+  TX_Data[0] = 0x7E;                                    // flag
+  
+  // Append the addresses and the control bytes
+  for ( i = 0; i< size_header; i++)
+  {
+  	TX_Data[i+1] = TX_Header[i];
+  }
+  
+  // Append the data
+  for (i = 0; i<length_data; i++) {
+    TX_Data[i+17] = *data++;       //data
+  }
+  
+  // Calculate and append the FCS (low byte first)
+  compute_CRC(TX_Data, TX_Data_length);
+  
+  // Append the final flag
+  TX_Data[TX_bytePointerMax-1] = 0x7E;   // flag
+}
+
+// *****************************************************************
+// Calculate the FCS
+unsigned short sysCRC(char *buffer, unsigned short length)
+{
+  unsigned short crc = 0xffff;
+
+  
+  *buffer++;              //CRC does not take flags into account
+  length = length - 4;    //No flags, and no bytes for CRC. Only data and headers
+  
+  while (length--)
+  {
+    crc = (crc >> 8) ^ AX_crc_ccitt_table[(crc ^ *buffer++) & 0xff];
+  }
+  return crc ^ 0xffff;
+}
+
+// *****************************************************************
+// Calculate the FCS
+void compute_CRC(char *frame, unsigned short size_frame){
+    
+  unsigned short temp;
+    
+  temp = sysCRC(frame, size_frame); 
+  frame[size_frame - 3] =  (temp & 0xff);
+  frame[size_frame - 2] = ((temp >> 8) & 0xff);
+}

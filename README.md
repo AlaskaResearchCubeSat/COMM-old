@@ -1,4 +1,0 @@
-COMM
-====
-
-Communications System

@@ -1,0 +1,81 @@
+<!DOCTYPE CrossStudio_for_MSP430_Session_File>
+<session>
+ <Bookmarks/>
+ <Breakpoints>
+  <BreakpointListItem line="212" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\GitHub\COMM\main.c" expression="" />
+  <BreakpointListItem line="220" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
+  <BreakpointListItem line="238" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
+  <BreakpointListItem line="246" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
+  <BreakpointListItem line="310" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
+  <BreakpointListItem line="311" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\COMM\Comm System 2618\255_Packet\main.c" expression="" />
+ </Breakpoints>
+ <EEMRegistersWindow>
+  <EEMRegisters moduleClockControl="60d7" generalClockControl="2e" />
+ </EEMRegistersWindow>
+ <EEMStateStorageWindow>
+  <EEMStateStorage control="2" />
+ </EEMStateStorageWindow>
+ <EEMTriggerSequencerWindow>
+  <EEMTriggers seqnxtstate0="65535" seqnxtstate1="65535" seq_ctl="3" seqaction="" />
+ </EEMTriggerSequencerWindow>
+ <EEMTriggersWindow/>
+ <ExecutionCountWindow/>
+ <Memory1>
+  <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
+ </Memory1>
+ <Memory2>
+  <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
+ </Memory2>
+ <Memory3>
+  <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
+ </Memory3>
+ <Memory4>
+  <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
+ </Memory4>
+ <Project>
+  <ProjectSessionItem path="255_Packet" name="unnamed" />
+  <ProjectSessionItem path="255_Packet;255_Packet" name="unnamed" />
+  <ProjectSessionItem path="255_Packet;255_Packet;Source Files" name="unnamed" />
+ </Project>
+ <Register1>
+  <RegisterWindow openNodes="Port P2;UCSI_B1 SPI Mode" binaryNodes="Port P2/P2IFG;Port P2/P2IES;Port P2/P2IE;Port P1/P1IFG;Port P1/P1IE" unsignedNodes="" visibleGroups="Port P1;Port P2;UCSI_B1 SPI Mode;SFR" decimalNodes="" octalNodes="" asciiNodes="" />
+ </Register1>
+ <Register2>
+  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+ </Register2>
+ <Register3>
+  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+ </Register3>
+ <Register4>
+  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+ </Register4>
+ <TraceWindow>
+  <Trace enabled="Yes" />
+ </TraceWindow>
+ <Watch1>
+  <Watches active="1" update="Never" >
+   <Watchpoint evalMode="2" linenumber="203" numelements="100" evalType="0" radix="10" name="RxBuffer" expression="RxBuffer" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="196" radix="10" name="temp_count1" expression="temp_count1" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="182" radix="10" name="PktLen" expression="PktLen" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="185" radix="10" name="RxBufferPos" expression="RxBufferPos" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="183" radix="10" name="RxBytesRemaining" expression="RxBytesRemaining" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="181" radix="10" name="RxFIFOLen" expression="RxFIFOLen" filename="c:/users/standard/documents/github/comm/main.c" />
+  </Watches>
+ </Watch1>
+ <Watch2>
+  <Watches active="0" update="Never" />
+ </Watch2>
+ <Watch3>
+  <Watches active="0" update="Never" />
+ </Watch3>
+ <Watch4>
+  <Watches active="0" update="Never" />
+ </Watch4>
+ <Files>
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\functions.c" y="272" path="C:\Users\Standard\Documents\GitHub\COMM\functions.c" left="0" selected="0" name="unnamed" top="272" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\main.c" y="179" path="C:\Users\Standard\Documents\GitHub\COMM\main.c" left="0" selected="1" name="unnamed" top="179" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\include.h" y="19" path="C:\Users\Standard\Documents\GitHub\COMM\include.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\include.c" y="9" path="C:\Users\Standard\Documents\GitHub\COMM\include.c" left="0" selected="0" name="unnamed" top="0" />
+ </Files>
+ <MSP430CrossStudioWindow activeProject="255_Packet" autoConnectTarget="Board 1" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\GitHub\COMM\255_Packet" fileDialogDefaultFilter="*.c" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+</session>

@@ -1,0 +1,125 @@
+
+SYMBOLS BY NAME
+
+    3180 ISR        _Port1_ISR          
+    3a40 CODE       _RF_Receive_Packet  
+    3abe CODE       _RF_Send_Packet     
+    3512 CODE       _Radio_Read_Burst_Registers
+    34cc CODE       _Radio_Read_Registers
+    3586 CODE       _Radio_Read_Status  
+    33f6 CODE       _Radio_SPI_Setup    
+    35cc CODE       _Radio_Strobe       
+    347a CODE       _Radio_Write_Burst_Registers
+    3440 CODE       _Radio_Write_Registers
+    35fc CODE       _Reset_Radios       
+    114e UDATA0     _RxBuf              
+    33e8 CODE       _TI_CC_Wait         
+    115a UDATA0     _TxBuf              
+    3b46 CODE       _TxChar             
+    3104 ISR        _USB_TX             
+    3146 ISR        _USB_rx             
+    368e CODE       _Write_RF_Settings  
+    1100            ___RAM_Address      
+    2000            ___RAM_Size         
+    1100 IDATA0     ___begin_IDATA0     
+    1103 UDATA0     ___begin_UDATA0     
+     130            ___crt_mpy          
+     138            ___crt_op2          
+     13a            ___crt_reslo        
+    1103 IDATA0     ___end_IDATA0       
+    19e8 UDATA0     ___end_UDATA0       
+    19e6 UDATA0     ___format_extender  
+    33d8 CONST      ___hex_lc           
+    33c8 CONST      ___hex_uc           
+    3c8c CODE       ___int16_mul        
+    3d96 CODE       ___pre_padding      
+    3d78 CODE       ___print_padding    
+    42be CODE       ___printf_lock      
+    42c0 CODE       ___printf_unlock    
+    3d2e CODE       ___putc             
+    3ae6 CODE       ___putchar          
+    3100 ISR        ___thunk___putchar  
+    3ca2 CODE       ___uint16_div       
+    3cba CODE       ___uint16_mod       
+    3dc0 CODE       ___vfprintf         
+    110c UDATA0     _data               
+    1960 UDATA0     _i                  
+    3af6 CODE       _initUART           
+    1108 UDATA0     _k                  
+    110a UDATA0     _length             
+    3b8a CODE       _main               
+    3cd2 CODE       _memcpy             
+    3ce2 CODE       _memset             
+    1102 IDATA0     _paTableLen         
+    1100 IDATA0     _paTable_CC1101     
+    1101 IDATA0     _paTable_CC2500     
+    322c ISR        _port2_ISR          
+    3cf2 CODE       _printf             
+    1962 UDATA0     _rxBuffer           
+    3cc2 CODE       _strlen             
+    19a4 UDATA0     _txBuffer           
+    1106 UDATA0     _txBufferSize       
+    1104 UDATA0     _tx_flag            
+
+
+SYMBOLS BY VALUE
+
+     130            ___crt_mpy          
+     138            ___crt_op2          
+     13a            ___crt_reslo        
+    1100            ___RAM_Address      
+    1100 IDATA0     ___begin_IDATA0     
+    1100 IDATA0     _paTable_CC1101     
+    1101 IDATA0     _paTable_CC2500     
+    1102 IDATA0     _paTableLen         
+    1103 UDATA0     ___begin_UDATA0     
+    1103 IDATA0     ___end_IDATA0       
+    1104 UDATA0     _tx_flag            
+    1106 UDATA0     _txBufferSize       
+    1108 UDATA0     _k                  
+    110a UDATA0     _length             
+    110c UDATA0     _data               
+    114e UDATA0     _RxBuf              
+    115a UDATA0     _TxBuf              
+    1960 UDATA0     _i                  
+    1962 UDATA0     _rxBuffer           
+    19a4 UDATA0     _txBuffer           
+    19e6 UDATA0     ___format_extender  
+    19e8 UDATA0     ___end_UDATA0       
+    2000            ___RAM_Size         
+    3100 ISR        ___thunk___putchar  
+    3104 ISR        _USB_TX             
+    3146 ISR        _USB_rx             
+    3180 ISR        _Port1_ISR          
+    322c ISR        _port2_ISR          
+    33c8 CONST      ___hex_uc           
+    33d8 CONST      ___hex_lc           
+    33e8 CODE       _TI_CC_Wait         
+    33f6 CODE       _Radio_SPI_Setup    
+    3440 CODE       _Radio_Write_Registers
+    347a CODE       _Radio_Write_Burst_Registers
+    34cc CODE       _Radio_Read_Registers
+    3512 CODE       _Radio_Read_Burst_Registers
+    3586 CODE       _Radio_Read_Status  
+    35cc CODE       _Radio_Strobe       
+    35fc CODE       _Reset_Radios       
+    368e CODE       _Write_RF_Settings  
+    3a40 CODE       _RF_Receive_Packet  
+    3abe CODE       _RF_Send_Packet     
+    3ae6 CODE       ___putchar          
+    3af6 CODE       _initUART           
+    3b46 CODE       _TxChar             
+    3b8a CODE       _main               
+    3c8c CODE       ___int16_mul        
+    3ca2 CODE       ___uint16_div       
+    3cba CODE       ___uint16_mod       
+    3cc2 CODE       _strlen             
+    3cd2 CODE       _memcpy             
+    3ce2 CODE       _memset             
+    3cf2 CODE       _printf             
+    3d2e CODE       ___putc             
+    3d78 CODE       ___print_padding    
+    3d96 CODE       ___pre_padding      
+    3dc0 CODE       ___vfprintf         
+    42be CODE       ___printf_lock      
+    42c0 CODE       ___printf_unlock    
