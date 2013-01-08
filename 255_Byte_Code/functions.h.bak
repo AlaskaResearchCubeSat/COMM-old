@@ -20,5 +20,5 @@ char Radio_Read_Registers(char, char);
 void Radio_Read_Burst_Registers(char, char *, int, char);
 char Radio_Read_Status(char, char);
 char RF_Receive_Packet(char *, char *, char);
-void RF_Send_Packet(char *, char, char);
+void RF_Send_Packet(char *, int, char);
 void Write_RF_Settings(void);

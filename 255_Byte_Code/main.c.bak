@@ -80,9 +80,10 @@ void main(void)
 
   P7OUT = 0;
 
-  data_length = 100;
+  data_length = 255;
  // RxBufferLen = sizeof(RxBuffer);          // Length of packet to be received  This does not work for some reason
 
+  RxThrBytes = 32;
   RxBufferLen = 255;
   temp_count1 = 0;
   temp_count2 = 0;
@@ -171,16 +172,11 @@ void main(void)
 
           break;
 
-      case RX_START:
-          P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                       // Disable Port 2 interrupts
-          Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x00, uhf);
-          P2IES &= ~(BIT0 + BIT1 + BIT2 + BIT3);                      // Change edge interrupt happens on
-          P2IFG = 0;                                                  // Clear flags
-          P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                          // Enable Port 2 interrupts
+      case RX_START:                                  
           RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, uhf) & TI_CCxxx0_NUM_RXBYTES);
-          //if (RF_Receive_Packet(RxBuffer, &RxBufferLen, uhf))        // Get packet from CC1101
-          PktLen = Radio_Read_Registers(TI_CCxxx0_RXFIFO, uhf); // Read length byte
-          RxBytesRemaining = PktLen;
+          //if (RF_Receive_Packet(RxBuffer, &RxBufferLen, CC1101))       // Get packet from CC1101
+          PktLen = 255; //Radio_Read_Registers(TI_CCxxx0_RXFIFO, CC1101);       // Read length byte
+          RxBytesRemaining = PktLen;                                  // Set number of bytes left to receive
           Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, uhf);
           RxBufferPos += RxFIFOLen;
           RxBytesRemaining -= RxFIFOLen;
@@ -189,10 +185,10 @@ void main(void)
       case RX_RUNNING:
            if (RxBytesRemaining > 0)
            {
-               if (RxBytesRemaining > 30)
+               if (RxBytesRemaining > RxThrBytes)
                {
-                   count = 30;
-                   RxBytesRemaining = RxBytesRemaining - 30;
+                   count = RxThrBytes;
+                   RxBytesRemaining = RxBytesRemaining - RxThrBytes;
                    temp_count1++;
                }
                else 
@@ -200,30 +196,36 @@ void main(void)
                    count = RxBytesRemaining;
                    RxBytesRemaining = 0;
                }
-               Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer + RxBufferPos, count, uhf);
+               Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, count, uhf);
                RxBufferPos += count;
            }
            if (RxBytesRemaining == 0)
-             {
+           {
                  if (uhf) 
                  {
                      state = 0;
                      P7OUT ^= BIT1;
                      printf("receiving packet\r\n");
-                     for (k=0; k < 100; k++)
+                     printf("\r\n");
+                     for (k=0; k < PktLen; k++)
                      {
                          printf("%d ", RxBuffer[k]);
                          printf("\r\n");
                      }
-                     //Radio_Strobe(TI_CCxxx0_SFRX, uhf);    // Flush RXFIFO
-
                  }
+
                  if (!(uhf))
                  {
                      state = 0;
                      P7OUT ^= BIT5;
+                     printf("receiving packet\r\n");
+                     for (k=0; k < PktLen; k++)
+                     {
+                         printf("%d ", RxBuffer[k]);
+                         printf("\r\n");
+                     }
                  }
-             }                         
+           }                         
           break;
       
       default:
@@ -327,27 +329,46 @@ __interrupt void port2_ISR (void)
 {
    if (P2IFG & BIT0)
     {
-        if (state == TX_START)
-        { 
-            P2IFG &= ~BIT0;
-        }
-        else
-        {
-            RxBufferPos = 0;
-            state = RX_START;
-            uhf = 1;
-            P2IFG &= ~BIT0;
-        }
+        switch(state){
+            case IDLE:
+                 /*
+                 P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                       // Disable Port 2 interrupts
+                 Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x00, uhf);
+                 P2IES &= ~(BIT0 + BIT1 + BIT2 + BIT3);                      // Change edge interrupt happens on
+                 P2IFG = 0;                                                  // Clear flags
+                 P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                          // Enable Port 2 interrupts   
+                 */
+                 RxBufferPos = 0;
+                 break;
+
+            case TX_START:
+                 P2IFG &= ~BIT0;
+                 break;
+
+            case RX_START:
+                 break;
+
+                     }
     } 
 
     if (P2IFG & BIT1) 
     {
-        if (state == TX_START)
-            state = TX_RUNNING;
+        switch(state)
+        {
+            case IDLE:
+                 state = RX_START;
+                 break;
 
-        if (state == RX_START)
-            state = RX_RUNNING;
+            case TX_START:
+                 state = TX_RUNNING;
+                 break;
 
+            case RX_START:
+                 state = RX_RUNNING;
+                 break;
+
+        }
+                 
         uhf = 1;
         P2IFG &= ~BIT1;
     }

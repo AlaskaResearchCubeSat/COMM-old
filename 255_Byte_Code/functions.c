@@ -311,8 +311,8 @@ void Write_RF_Settings(void)
 // PA ramping = false 
 // TX power = 0
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 1);   // Asserts when sync word has been sent / received, and de-asserts at the end of the packet. 
-Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x29, 1);   // Associated to the RX FIFO: Asserts when RX FIFO is filled at or above the RX FIFO threshold. De-asserts when RX FIFO is drained below the same threshold.
-Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x07, 1);   // FIFO Threshold: 1 byte in TX FIFO and 63 in RX FIFO
+Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x00, 1);   // Associated to the RX FIFO: Asserts when RX FIFO is filled at or above the RX FIFO threshold. De-asserts when RX FIFO is drained below the same threshold.
+Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x07, 1);   // FIFO Threshold
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,  0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_FSCTRL1,  0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ2,    0x10, 1);
@@ -328,6 +328,7 @@ Radio_Write_Registers(TI_CCxxx0_DEVIATN,  0x15, 1);
 Radio_Write_Registers(TI_CCxxx0_FREND1,   0x56, 1);
 Radio_Write_Registers(TI_CCxxx0_FREND0,   0x10, 1);
 Radio_Write_Registers(TI_CCxxx0_MCSM0,    0x18, 1);
+Radio_Write_Registers(TI_CCxxx0_MCSM1,    0x3F, 1);
 Radio_Write_Registers(TI_CCxxx0_FOCCFG,   0x16, 1);
 Radio_Write_Registers(TI_CCxxx0_BSCFG,    0x6C, 1);
 Radio_Write_Registers(TI_CCxxx0_AGCCTRL2, 0x03, 1);
@@ -349,7 +350,7 @@ Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0xFF, 1);      // Packet length set fo
 
 // Write CC2500 register settings
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 0);  // GDO0 output pin config.
-Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x29, 0);  // GDO2 output pin config.
+Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x00, 0);  // GDO2 output pin config.
 Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x0F, 0);  // FIFO Threshold: 1 byte in TX FIFO and 63 in RX FIFO
 Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0x08, 0);  // Packet length.
 Radio_Write_Registers(TI_CCxxx0_PKTCTRL1, 0x04, 0);  // Packet automation control.

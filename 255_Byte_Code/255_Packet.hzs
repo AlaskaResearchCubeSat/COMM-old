@@ -2,7 +2,8 @@
 <session>
  <Bookmarks/>
  <Breakpoints>
-  <BreakpointListItem line="212" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\GitHub\COMM\main.c" expression="" />
+  <BreakpointListItem line="186" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="c:\users\standard\documents\github\comm\255_byte_code\main.c" expression="" />
+  <BreakpointListItem line="212" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\GitHub\COMM\main.c" expression="" />
   <BreakpointListItem line="220" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
   <BreakpointListItem line="238" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
   <BreakpointListItem line="246" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
@@ -54,8 +55,7 @@
  </TraceWindow>
  <Watch1>
   <Watches active="1" update="Never" >
-   <Watchpoint evalMode="2" linenumber="203" numelements="100" evalType="0" radix="10" name="RxBuffer" expression="RxBuffer" filename="c:/users/standard/documents/github/comm/main.c" />
-   <Watchpoint linenumber="196" radix="10" name="temp_count1" expression="temp_count1" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint evalMode="2" linenumber="180" numelements="258" evalType="0" radix="10" name="RxBuffer" expression="RxBuffer" filename="c:/users/standard/documents/github/comm/255_byte_code/main.c" />
    <Watchpoint linenumber="182" radix="10" name="PktLen" expression="PktLen" filename="c:/users/standard/documents/github/comm/main.c" />
    <Watchpoint linenumber="185" radix="10" name="RxBufferPos" expression="RxBufferPos" filename="c:/users/standard/documents/github/comm/main.c" />
    <Watchpoint linenumber="183" radix="10" name="RxBytesRemaining" expression="RxBytesRemaining" filename="c:/users/standard/documents/github/comm/main.c" />
@@ -72,10 +72,10 @@
   <Watches active="0" update="Never" />
  </Watch4>
  <Files>
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\functions.c" y="272" path="C:\Users\Standard\Documents\GitHub\COMM\functions.c" left="0" selected="0" name="unnamed" top="272" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\main.c" y="179" path="C:\Users\Standard\Documents\GitHub\COMM\main.c" left="0" selected="1" name="unnamed" top="179" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\include.h" y="19" path="C:\Users\Standard\Documents\GitHub\COMM\include.h" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\include.c" y="9" path="C:\Users\Standard\Documents\GitHub\COMM\include.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\255_Byte_Code\functions.c" y="330" path="C:\Users\Standard\Documents\GitHub\COMM\255_Byte_Code\functions.c" left="0" selected="0" name="unnamed" top="330" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\255_Byte_Code\include.c" y="12" path="C:\Users\Standard\Documents\GitHub\COMM\255_Byte_Code\include.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\255_Byte_Code\include.h" y="22" path="C:\Users\Standard\Documents\GitHub\COMM\255_Byte_Code\include.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="c:\users\standard\documents\github\comm\255_byte_code\main.c" y="340" path="c:\users\standard\documents\github\comm\255_byte_code\main.c" left="0" selected="1" name="unnamed" top="270" />
  </Files>
  <MSP430CrossStudioWindow activeProject="255_Packet" autoConnectTarget="Board 1" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\GitHub\COMM\255_Packet" fileDialogDefaultFilter="*.c" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>

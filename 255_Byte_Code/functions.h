@@ -4,9 +4,10 @@
 #define CS_1101 BIT4
 #define CS_2500 BIT5
 
-#define TX_START 1
+#define IDLE       0
+#define TX_START   1
 #define TX_RUNNING 2
-#define RX_START 3
+#define RX_START   3
 #define RX_RUNNING 4
 
 void Build_Packet(int);
