@@ -1,0 +1,71 @@
+<!DOCTYPE CrossStudio_for_MSP430_Session_File>
+<session>
+ <Bookmarks/>
+ <Breakpoints>
+  <BreakpointListItem line="10" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code\main.c" expression="" />
+  <BreakpointListItem line="50" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\COMM\Comm System 2618\Eng. Board Code\main.c" expression="" />
+  <BreakpointListItem line="50" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code\main.c" expression="" />
+ </Breakpoints>
+ <EEMRegistersWindow>
+  <EEMRegisters moduleClockControl="60d7" generalClockControl="2e" />
+ </EEMRegistersWindow>
+ <EEMStateStorageWindow>
+  <EEMStateStorage control="2" />
+ </EEMStateStorageWindow>
+ <EEMTriggerSequencerWindow>
+  <EEMTriggers seqnxtstate0="65535" seqnxtstate1="65535" seq_ctl="3" seqaction="" />
+ </EEMTriggerSequencerWindow>
+ <EEMTriggersWindow/>
+ <ExecutionCountWindow/>
+ <Memory1>
+  <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
+ </Memory1>
+ <Memory2>
+  <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
+ </Memory2>
+ <Memory3>
+  <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
+ </Memory3>
+ <Memory4>
+  <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
+ </Memory4>
+ <Project>
+  <ProjectSessionItem path="Eng. Board Code" name="unnamed" />
+  <ProjectSessionItem path="Eng. Board Code;Eng. Board Code" name="unnamed" />
+  <ProjectSessionItem path="Eng. Board Code;Eng. Board Code;Source Files" name="unnamed" />
+ </Project>
+ <Register1>
+  <RegisterWindow openNodes="SFR/IFG1;Timer_A3;Timer_A3/TACTL" binaryNodes="" unsignedNodes="" visibleGroups="UCSI_B1 SPI Mode;SFR;Timer_A3" decimalNodes="" octalNodes="" asciiNodes="" />
+ </Register1>
+ <Register2>
+  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+ </Register2>
+ <Register3>
+  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+ </Register3>
+ <Register4>
+  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+ </Register4>
+ <TraceWindow>
+  <Trace enabled="Yes" />
+ </TraceWindow>
+ <Watch1>
+  <Watches active="1" update="Never" >
+   <Watchpoint evalMode="2" linenumber="66" numelements="62" evalType="0" radix="10" name="TxBuffer" expression="TxBuffer" filename="z:/software/comm/comm system 2618/eng. board code/main.c" />
+  </Watches>
+ </Watch1>
+ <Watch2>
+  <Watches active="0" update="Never" />
+ </Watch2>
+ <Watch3>
+  <Watches active="0" update="Never" />
+ </Watch3>
+ <Watch4>
+  <Watches active="0" update="Never" />
+ </Watch4>
+ <Files>
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\main.c" y="0" path="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\main.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="7" debugPath="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\radio_interrupts.c" y="20" path="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\radio_interrupts.c" left="0" selected="1" name="unnamed" top="0" />
+ </Files>
+ <MSP430CrossStudioWindow activeProject="Eng. Board Code" autoConnectTarget="TI MSP-FET430UIF (JTAG)" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code" fileDialogDefaultFilter="*.c" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+</session>

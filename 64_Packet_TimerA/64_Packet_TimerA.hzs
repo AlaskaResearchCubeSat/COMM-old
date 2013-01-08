@@ -52,12 +52,12 @@
  </TraceWindow>
  <Watch1>
   <Watches active="1" update="Never" >
-   <Watchpoint linenumber="339" radix="16" name="RF_Receive_Packet" expression="RF_Receive_Packet" filename="z:/software/comm/comm system 2618/64_packet/master_spi.c" />
-   <Watchpoint linenumber="348" radix="-1" name="pktLen" expression="pktLen" filename="z:/software/comm/comm system 2618/64_packet/master_spi.c" />
-   <Watchpoint linenumber="151" radix="-1" name="uhf" expression="uhf" filename="z:/software/comm/comm system 2618/64_packet/main.c" />
-   <Watchpoint evalMode="1" linenumber="350" evalType="1" radix="-1" name="length" expression="length" filename="z:/software/comm/comm system 2618/64_packet/master_spi.c" />
-   <Watchpoint evalMode="2" linenumber="143" numelements="64" evalType="0" radix="10" name="rxBuffer" expression="rxBuffer" filename="z:/software/comm/comm system 2618/64_packet/main.c" />
    <Watchpoint evalMode="1" linenumber="9" evalType="2" radix="-1" name="TxBuf" expression="TxBuf" filename="z:/software/comm/comm system 2618/64_packet/uart.c" />
+   <Watchpoint evalMode="2" linenumber="143" numelements="64" evalType="0" radix="10" name="rxBuffer" expression="rxBuffer" filename="z:/software/comm/comm system 2618/64_packet/main.c" />
+   <Watchpoint evalMode="1" linenumber="350" evalType="1" radix="-1" name="length" expression="length" filename="z:/software/comm/comm system 2618/64_packet/master_spi.c" />
+   <Watchpoint linenumber="151" radix="-1" name="uhf" expression="uhf" filename="z:/software/comm/comm system 2618/64_packet/main.c" />
+   <Watchpoint linenumber="348" radix="-1" name="pktLen" expression="pktLen" filename="z:/software/comm/comm system 2618/64_packet/master_spi.c" />
+   <Watchpoint linenumber="339" radix="16" name="RF_Receive_Packet" expression="RF_Receive_Packet" filename="z:/software/comm/comm system 2618/64_packet/master_spi.c" />
   </Watches>
  </Watch1>
  <Watch2>
@@ -69,11 +69,6 @@
  <Watch4>
   <Watches active="0" update="Never" />
  </Watch4>
- <Files>
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA\main.c" y="9" path="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA\main.c" left="0" selected="1" name="unnamed" top="9" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA\initialize_timerA.c" y="18" path="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA\initialize_timerA.c" left="0" selected="0" name="unnamed" top="18" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA\Master_SPI.c" y="264" path="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA\Master_SPI.c" left="0" selected="0" name="unnamed" top="264" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA\terminal.c" y="0" path="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA\terminal.c" left="0" selected="0" name="unnamed" top="0" />
- </Files>
- <MSP430CrossStudioWindow activeProject="64_Packet" autoConnectTarget="TI MSP-FET430UIF (JTAG)" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\64_Packet_TimerA" fileDialogDefaultFilter="*.c" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+ <Files/>
+ <MSP430CrossStudioWindow activeProject="64_Packet" autoConnectTarget="TI MSP-FET430UIF (JTAG)" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code" fileDialogDefaultFilter="" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>
