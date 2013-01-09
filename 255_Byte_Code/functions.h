@@ -4,12 +4,20 @@
 #define CS_1101 BIT4
 #define CS_2500 BIT5
 
-#define IDLE       0
-#define TX_START   1
-#define TX_RUNNING 2
-#define RX_START   3
-#define RX_RUNNING 4
+#define IDLE         0
+#define TX_START     1
+#define TX_RUNNING   2
+#define RX_START     3
+#define RX_RUNNING   4
+#define CC1101_GDO0  BIT0
+#define CC1101_GDO2  BIT1
+#define CC2500_GDO0  BIT3
+#define CC2500_GDO2  BIT4
+#define RF_SW1       BIT0
+#define RF_SW2       BIT1
 
+void TXRX(void *);
+void radio_interrupts(void);
 void Build_Packet(int);
 void TI_CC_Wait(unsigned int);
 void SPI_Setup(void);

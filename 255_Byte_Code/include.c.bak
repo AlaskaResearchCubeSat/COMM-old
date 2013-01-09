@@ -10,7 +10,7 @@ char RxBuffer[258];
 char uhf, temp_count1, temp_count2, button, RxBufferLen, PktLen;
 unsigned int data_length, count, state, k, i, TxID, TxNum;
 unsigned int TxBufferLen, TxBufferPos, TxBytesRemaining;
-unsigned int RxBufferPos, RxBytesRemaining, RxFIFOLen;
+unsigned int RxBufferPos, RxBytesRemaining, RxFIFOLen, RxThrBytes;
 char paTable_CC1101[] = {0x60};
 char paTable_CC2500[] = {0xFB};
 char paTableLen = 1;

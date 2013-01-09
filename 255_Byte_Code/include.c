@@ -4,7 +4,6 @@
 
 #include <include.h>
 
-
 char TxBuffer[258];
 char RxBuffer[258];
 char uhf, temp_count1, temp_count2, button, RxBufferLen, PktLen;
