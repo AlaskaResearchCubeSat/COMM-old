@@ -1,15 +1,7 @@
 <!DOCTYPE CrossStudio_for_MSP430_Session_File>
 <session>
  <Bookmarks/>
- <Breakpoints>
-  <BreakpointListItem line="186" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="c:\users\standard\documents\github\comm\255_byte_code\main.c" expression="" />
-  <BreakpointListItem line="212" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\GitHub\COMM\main.c" expression="" />
-  <BreakpointListItem line="220" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
-  <BreakpointListItem line="238" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
-  <BreakpointListItem line="246" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
-  <BreakpointListItem line="310" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\255_Packet\main.c" expression="" />
-  <BreakpointListItem line="311" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\COMM\Comm System 2618\255_Packet\main.c" expression="" />
- </Breakpoints>
+ <Breakpoints/>
  <EEMRegistersWindow>
   <EEMRegisters moduleClockControl="60d7" generalClockControl="2e" />
  </EEMRegistersWindow>
@@ -37,29 +29,31 @@
   <ProjectSessionItem path="255_Packet" name="unnamed" />
   <ProjectSessionItem path="255_Packet;255_Packet" name="unnamed" />
   <ProjectSessionItem path="255_Packet;255_Packet;Source Files" name="unnamed" />
+  <ProjectSessionItem path="255_Packet;255_Packet;System Files" name="unnamed" />
  </Project>
  <Register1>
-  <RegisterWindow openNodes="Port P2;UCSI_B1 SPI Mode" binaryNodes="Port P2/P2IFG;Port P2/P2IES;Port P2/P2IE;Port P1/P1IFG;Port P1/P1IE" unsignedNodes="" visibleGroups="Port P1;Port P2;UCSI_B1 SPI Mode;SFR" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="Port P1;UCSI_B1 SPI Mode" binaryNodes="Port P1/P1IFG;Port P1/P1IE;Port P2/P2IFG;Port P2/P2IES;Port P2/P2IE" hiddenNodes="" unsignedNodes="" visibleGroups="Port P1;Port P2;UCSI_B1 SPI Mode;SFR" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register1>
  <Register2>
-  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register2>
  <Register3>
-  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register3>
  <Register4>
-  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register4>
+ <TargetWindow programAction="" uploadFileType="" programLoadAddress="" programSize="" uploadFileName="" uploadMemoryInterface="" programFileName="" uploadStartAddress="" programFileType="" uploadSize="" programMemoryInterface="" />
  <TraceWindow>
   <Trace enabled="Yes" />
  </TraceWindow>
  <Watch1>
   <Watches active="1" update="Never" >
-   <Watchpoint linenumber="181" radix="10" name="RxFIFOLen" expression="RxFIFOLen" filename="c:/users/standard/documents/github/comm/main.c" />
-   <Watchpoint linenumber="183" radix="10" name="RxBytesRemaining" expression="RxBytesRemaining" filename="c:/users/standard/documents/github/comm/main.c" />
-   <Watchpoint linenumber="185" radix="10" name="RxBufferPos" expression="RxBufferPos" filename="c:/users/standard/documents/github/comm/main.c" />
-   <Watchpoint linenumber="182" radix="10" name="PktLen" expression="PktLen" filename="c:/users/standard/documents/github/comm/main.c" />
    <Watchpoint evalMode="2" linenumber="180" numelements="258" evalType="0" radix="10" name="RxBuffer" expression="RxBuffer" filename="c:/users/standard/documents/github/comm/255_byte_code/main.c" />
+   <Watchpoint linenumber="182" radix="10" name="PktLen" expression="PktLen" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="183" radix="10" name="RxBytesRemaining" expression="RxBytesRemaining" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="181" radix="10" name="RxFIFOLen" expression="RxFIFOLen" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="185" radix="10" name="RxBufferPos" expression="RxBufferPos" filename="c:/users/standard/documents/github/comm/main.c" />
   </Watches>
  </Watch1>
  <Watch2>
@@ -71,6 +65,17 @@
  <Watch4>
   <Watches active="0" update="Never" />
  </Watch4>
- <Files/>
- <MSP430CrossStudioWindow activeProject="255_Packet" autoConnectTarget="Board 1" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\GitHub\COMM\64_Packet_TimerA" fileDialogDefaultFilter="" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+ <Files>
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="31" debugPath="Z:\Software\Local\COMM\255_Byte_Code\main.c" y="70" path="Z:\Software\Local\COMM\255_Byte_Code\main.c" left="0" selected="0" name="unnamed" top="36" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="37" debugPath="Z:\Software\Local\COMM\255_Byte_Code\functions.c" y="492" path="Z:\Software\Local\COMM\255_Byte_Code\functions.c" left="0" selected="1" name="unnamed" top="468" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="39" debugPath="Z:\Software\Local\COMM\255_Byte_Code\functions.h" y="39" path="Z:\Software\Local\COMM\255_Byte_Code\functions.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="57" debugPath="Z:\Software\Local\COMM\255_Byte_Code\include.c" y="11" path="Z:\Software\Local\COMM\255_Byte_Code\include.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="22" debugPath="Z:\Software\Local\COMM\255_Byte_Code\include.h" y="11" path="Z:\Software\Local\COMM\255_Byte_Code\include.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\software\bus\library\ARCbus.h" y="3" path="Z:\software\bus\library\ARCbus.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="30" debugPath="Z:\software\bus\library\ARCbus.c" y="263" path="Z:\software\bus\library\ARCbus.c" left="0" selected="0" name="unnamed" top="236" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Local\COMM\255_Byte_Code\UCint.c" y="36" path="Z:\Software\Local\COMM\255_Byte_Code\UCint.c" left="0" selected="0" name="unnamed" top="9" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="31" debugPath="Z:\Software\Local\COMM\255_Byte_Code\UCA1_uart.c" y="40" path="Z:\Software\Local\COMM\255_Byte_Code\UCA1_uart.c" left="0" selected="0" name="unnamed" top="30" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="3" debugPath="Z:\software\local\comm\255_byte_code\terminal.c" y="61" path="Z:\software\local\comm\255_byte_code\terminal.c" left="0" selected="0" name="unnamed" top="36" />
+ </Files>
+ <MSP430CrossStudioWindow activeProject="255_Packet" autoConnectTarget="Board 1" debugSearchFileMap="" fileDialogInitialDirectory="C:\Program Files (x86)\Rowley Associates Limited\CrossWorks for MSP430 2.1\ctl\source" fileDialogDefaultFilter="" autoConnectCapabilities="3455" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>

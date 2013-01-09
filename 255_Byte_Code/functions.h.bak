@@ -1,5 +1,7 @@
 //Code for prototype Communication System for the Alaska Research CubeSat (ARC) as developed by the Alaska Space Grant Program
 //Samuel Vanderwaal, April 2012
+#ifndef FUNCTIONS
+#define FUNCTIONS
 
 #define CS_1101 BIT4
 #define CS_2500 BIT5
@@ -16,7 +18,13 @@
 #define RF_SW1       BIT0
 #define RF_SW2       BIT1
 
-void TXRX(void);
+//Create event flags for the radios
+enum{CC1101_EV_RX_SYNC=(1<<0),CC1101_EV_RX_THR=(1<<1),CC1101_EV_TX_START=(1<<2),CC1101_EV_TX_THR=(1<<3),CC2500_EV_RX_SYNC=(1<<4),CC2500_EV_RX_THR=(1<<5),CC2500_EV_TX_START=(1<<6),CC2500_EV_TX_THR=(1<<7)};
+//All events for the radios
+#define RADIO_EVENTS (CC1101_EV_RX_SYNC|CC1101_EV_RX_THR|CC1101_EV_TX_START|CC1101_EV_TX_THR|CC2500_EV_RX_SYNC|CC2500_EV_RX_THR|CC2500_EV_TX_START|CC2500_EV_TX_THR)    
+
+
+void TXRX(void *);
 void radio_interrupts(void);
 void Build_Packet(int);
 void TI_CC_Wait(unsigned int);
@@ -31,3 +39,5 @@ char Radio_Read_Status(char, char);
 char RF_Receive_Packet(char *, char *, char);
 void RF_Send_Packet(char *, int, char);
 void Write_RF_Settings(void);
+
+#endif

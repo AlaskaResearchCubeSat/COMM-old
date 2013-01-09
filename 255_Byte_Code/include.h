@@ -15,6 +15,8 @@
 #include <stdio.h>
 #include <UCA1_uart.h>
 
+extern CTL_EVENT_SET_t radio_event_flags;
+
 extern char TxBuffer[258];
 extern char RxBuffer[258];
 extern char uhf, temp_count1, temp_count2, button, RxBufferLen, PktLen;

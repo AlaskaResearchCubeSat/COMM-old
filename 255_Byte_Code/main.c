@@ -17,12 +17,6 @@ void main(void)
   // Sets up Timer A, clocks and pauses the watchdog timer
   ARC_setup();
   
-  //Initialize UART
-  init_UCA1_UART();                            
-  
-  // Initalizes bus interface
-  initARCbus(BUS_ADDR_COMM);
-  
   // Sets up the radio's SPI 
   SPI_Setup();               
 
@@ -55,9 +49,15 @@ void main(void)
   P2IES &= ~(BIT0 + BIT1 + BIT2 + BIT3);    // Low-to-high transition for interrupts
   P2IE |= BIT0 + BIT1 + BIT2 + BIT3;        // Enable ints
   P2IFG = 0;                                // Clear flags
-
+  
+  //Initialize UART
+  init_UCA1_UART();                           
+   
   Radio_Strobe(TI_CCxxx0_SRX, CC1101);           // Initialize CC1101 in RX mode
   Radio_Strobe(TI_CCxxx0_SRX, CC2500);           // Initialize CC2500 in Rx mode
+   
+  // Initalizes bus interface
+  initARCbus(BUS_ADDR_COMM);
 
   //Initialize stacks
   memset(stack1,0xcd,sizeof(stack1));   //Write known values into stack
@@ -79,24 +79,20 @@ void main(void)
   temp_count1 = 0;
   temp_count2 = 0;
   P2IFG = 0;     // Clear flags
+
+  printf("Ready");
                      
   mainLoop();
 }
 
-#pragma vector=PORT2_VECTOR
-__interrupt void port2_ISR (void)
+void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
 {
    if (P2IFG & BIT0)
     {
         switch(state){
             case IDLE:
-                 /*
-                 P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                       // Disable Port 2 interrupts
-                 Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x00, uhf);
-                 P2IES &= ~(BIT0 + BIT1 + BIT2 + BIT3);                      // Change edge interrupt happens on
-                 P2IFG = 0;                                                  // Clear flags
-                 P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                          // Enable Port 2 interrupts   
-                 */
+                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_SYNC,0);
+                 state = RX_START;
                  RxBufferPos = 0;
                  break;
 
@@ -108,6 +104,7 @@ __interrupt void port2_ISR (void)
                  break;
 
                      }
+    P2IFG &= ~(BIT0);
     } 
 
     if (P2IFG & BIT1) 
@@ -115,14 +112,15 @@ __interrupt void port2_ISR (void)
         switch(state)
         {
             case IDLE:
-                 state = RX_START;
                  break;
 
             case TX_START:
+                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_THR,0);
                  state = TX_RUNNING;
                  break;
 
             case RX_START:
+                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_THR,0);
                  state = RX_RUNNING;
                  break;
 
@@ -134,31 +132,44 @@ __interrupt void port2_ISR (void)
   
    if (P2IFG & BIT2)
     {
-        if (state == TX_START)
-        { 
-            P2IFG &= ~BIT2;
-        }
-        else
-        {
-            state = RX_START;
-            RxBufferPos = 0;
-            uhf = 0;
-            P2IFG &= ~BIT2;                           // Clear flag
-        }
+        switch(state){
+            case IDLE:
+                 ctl_events_set_clear(&radio_event_flags,CC2500_EV_RX_SYNC,0);
+                 state = RX_START;
+                 RxBufferPos = 0;
+                 break;
 
+            case TX_START:
+                 P2IFG &= ~BIT0;
+                 break;
+
+            case RX_START:
+                 break;
+
+                     }
+    P2IFG &= ~BIT2;
     } 
 
     if (P2IFG & BIT3) 
     {
-      if (state == TX_START)
-          state = TX_RUNNING;
+        switch(state)
+        {
+            case IDLE:
+                 break;
 
-      if (state == RX_START)
-          state = RX_RUNNING;
+            case TX_START:
+                 ctl_events_set_clear(&radio_event_flags,CC2500_EV_TX_THR,0);
+                 state = TX_RUNNING;
+                 break;
+
+            case RX_START:
+                 ctl_events_set_clear(&radio_event_flags,CC2500_EV_RX_THR,0);
+                 state = RX_RUNNING;
+                 break;
+        }
 
       uhf = 0;
       P2IFG &= ~BIT3;
     }
 P2IFG = 0;
-LPM0_EXIT;
 }

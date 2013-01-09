@@ -20,6 +20,7 @@
       <configuration Name="Common" filter="xml"/>
       <file file_name="$(StudioDir)/src/crt0.asm"/>
     </folder>
+    <file file_name="$(StudioDir)/ctl/source/threads.js"/>
   </project>
   <configuration Name="MSP430 Debug" inherited_configurations="MSP430;Debug" linker_additional_files="Z:\\Software\\BUS\\library\\MSP430 Debug\\BUSlib.hza"/>
   <configuration Name="MSP430" Platform="MSP430" hidden="Yes"/>

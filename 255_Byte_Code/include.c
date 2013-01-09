@@ -4,6 +4,8 @@
 
 #include <include.h>
 
+CTL_EVENT_SET_t radio_event_flags;
+
 char TxBuffer[258];
 char RxBuffer[258];
 char uhf, temp_count1, temp_count2, button, RxBufferLen, PktLen;
