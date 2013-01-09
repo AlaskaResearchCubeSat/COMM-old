@@ -13,10 +13,7 @@
 #include <Radio_Registers.h>
 #include <string.h>
 #include <stdio.h>
-#include <uart.h>
-
-extern unsigned stack1[1+256+1];
-extern unsigned stack2[1+256+1];
+#include <UCA1_uart.h>
 
 extern char TxBuffer[258];
 extern char RxBuffer[258];

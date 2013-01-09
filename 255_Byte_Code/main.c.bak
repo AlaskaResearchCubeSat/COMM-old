@@ -18,7 +18,7 @@ void main(void)
   ARC_setup();
   
   //Initialize UART
-  initUART();                            
+  init_UCA1_UART();                            
   
   // Initalizes bus interface
   initARCbus(BUS_ADDR_COMM);
@@ -71,8 +71,6 @@ void main(void)
   ctl_task_run(&tasks[0],10,TXRX,NULL,"TXRX",sizeof(stack1)/sizeof(stack1[0]) - 2,stack1+1,0);
   //ctl_taks_run(&tasks[1],1,name,NULL,"name",sizeof(stack2)/sizeof(stack2[0]) - 2,stack2+1,0);
   
-  mainLoop();
-
   data_length = 255;
   // RxBufferLen = sizeof(RxBuffer);          // Length of packet to be received  This does not work for some reason
 
@@ -82,152 +80,10 @@ void main(void)
   temp_count2 = 0;
   P2IFG = 0;     // Clear flags
   _EINT();
-
-  while (1){
-  LPM0;
-
-
-  switch (state){
-      case TX_START:
-          P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
-          Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x02, uhf);                                // Set GDO2 to interrupt on FIFO thresholds
-          P2IES |= (BIT0 + BIT1 + BIT2 + BIT3);                                              // Change edge interrupt happens on
-          P2IFG = 0;                                                                         // Clear flags
-          P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
-          Build_Packet(data_length);
-          if (TxBytesRemaining > 64)
-          {
-              count = 64;
-              TxBytesRemaining = TxBytesRemaining - 64;
-          }
-          else
-          {
-              count = TxBytesRemaining;
-              TxBytesRemaining = 0;
-          }
-          Radio_Write_Burst_Registers(TI_CCxxx0_TXFIFO, TxBuffer+TxBufferPos, count, uhf);     // Write TX data
-          TxBufferPos += count;
-          Radio_Strobe(TI_CCxxx0_STX, uhf);                                                  // Set radio state to Tx 
-          break;
-
-      case TX_RUNNING:
-          if (TxBytesRemaining > 0) 
-          {
-             if (TxBytesRemaining > 30)
-             {
-                 count = 30;
-                 TxBytesRemaining = TxBytesRemaining - 30;
-             }
-             else
-             {
-                 count = TxBytesRemaining;
-                 TxBytesRemaining = 0;
-             }
-             Radio_Write_Burst_Registers(TI_CCxxx0_TXFIFO, TxBuffer + TxBufferPos, count, uhf);
-             TxBufferPos += count;
-          }
-          if (TxBytesRemaining == 0)
-          {
-              state = 0;
-              if (uhf)
-              {
-                  P7OUT ^= BIT0;
-                  temp_count1++;
-                  printf("%d", temp_count1);
-                  printf(" packet(s) sent \r\n");
-                  printf("CC1101 \r\n");
-//                  printf("packet sent \r\n");
-//                  for (k=0; k < TxBufferPos; k++)
-//                 {
-//                     printf("%d ", TxBuffer[k]);
-//                     printf(" ");
-//                 }
-              }
-              if (!(uhf))
-              {
-                  P7OUT ^= BIT4;
-                  temp_count2++;
-                  printf("%d", temp_count2);
-                  printf(" packet(s) sent \r\n");
-                  printf("CC2500 \r\n");
-//                  printf("packet sent \r\n");
-//                  for (k=0; k < TxBufferPos; k++)
-//                 {
-//                     printf("%d ", TxBuffer[k]);
-//                     printf(" ");
-//                 }
-              }
-              P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
-              Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x00, uhf);                                // Set GDO2 to interrupt on FIFO thresholds
-              P2IES &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Change edge interrupt happens on
-              P2IFG = 0;                                                                         // Clear flags
-              P2IE |= BIT0 + BIT1 + BIT2 + BIT3; 
-          }
-
-          break;
-
-      case RX_START:                                  
-          RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, uhf) & TI_CCxxx0_NUM_RXBYTES);
-          //if (RF_Receive_Packet(RxBuffer, &RxBufferLen, CC1101))       // Get packet from CC1101
-          PktLen = 255; //Radio_Read_Registers(TI_CCxxx0_RXFIFO, CC1101);       // Read length byte
-          RxBytesRemaining = PktLen;                                  // Set number of bytes left to receive
-          Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, uhf);
-          RxBufferPos += RxFIFOLen;
-          RxBytesRemaining -= RxFIFOLen;
-          break;
-
-      case RX_RUNNING:
-           if (RxBytesRemaining > 0)
-           {
-               if (RxBytesRemaining > RxThrBytes)
-               {
-                   count = RxThrBytes;
-                   RxBytesRemaining = RxBytesRemaining - RxThrBytes;
-                   temp_count1++;
-               }
-               else 
-               {
-                   count = RxBytesRemaining;
-                   RxBytesRemaining = 0;
-               }
-               Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, count, uhf);
-               RxBufferPos += count;
-           }
-           if (RxBytesRemaining == 0)
-           {
-                 if (uhf) 
-                 {
-                     state = 0;
-                     P7OUT ^= BIT1;
-                     printf("receiving packet\r\n");
-                     printf("\r\n");
-                     for (k=0; k < PktLen; k++)
-                     {
-                         printf("%d ", RxBuffer[k]);
-                         printf("\r\n");
-                     }
-                 }
-
-                 if (!(uhf))
-                 {
-                     state = 0;
-                     P7OUT ^= BIT5;
-                     printf("receiving packet\r\n");
-                     for (k=0; k < PktLen; k++)
-                     {
-                         printf("%d ", RxBuffer[k]);
-                         printf("\r\n");
-                     }
-                 }
-           }                         
-          break;
-      
-      default:
-          break;
-  }
-  }
-}
                      
+  mainLoop();
+
+
 #pragma vector=PORT2_VECTOR
 __interrupt void port2_ISR (void)
 {

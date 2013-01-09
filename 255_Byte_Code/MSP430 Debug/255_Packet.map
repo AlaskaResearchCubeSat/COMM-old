@@ -2,46 +2,46 @@
 SYMBOLS BY NAME
 
       80            CTL_IRQ_STACK_SIZE  
-    2baa UDATA0     _ARC_bus_task       
-    465a CODE       _ARC_setup          
-    4b48 CODE       _BUS_cmd_init       
-    4b5a CODE       _BUS_cmd_tx         
-    4bd6 CODE       _BUS_i2c_tx         
-    29aa UDATA0     _BUS_stack          
-    38b6 CODE       _Build_Packet       
-    33f2 ISR        _DMA_int            
+    27be UDATA0     _ARC_bus_task       
+    4342 CODE       _ARC_setup          
+    4830 CODE       _BUS_cmd_init       
+    4842 CODE       _BUS_cmd_tx         
+    48be CODE       _BUS_i2c_tx         
+    25be UDATA0     _BUS_stack          
+    3850 CODE       _Build_Packet       
+    33d0 ISR        _DMA_int            
     1322 UDATA0     _PktLen             
-    3a88 CODE       _Radio_Read_Burst_Registers
-    3afc CODE       _Radio_Read_Status  
-    39cc CODE       _Radio_Strobe       
-    3a36 CODE       _Radio_Write_Burst_Registers
-    39fc CODE       _Radio_Write_Registers
-    3936 CODE       _Reset_Radios       
-    196c UDATA0     _RxBuf              
+    3a22 CODE       _Radio_Read_Burst_Registers
+    3a96 CODE       _Radio_Read_Status  
+    3966 CODE       _Radio_Strobe       
+    39d0 CODE       _Radio_Write_Burst_Registers
+    3996 CODE       _Radio_Write_Registers
+    38d0 CODE       _Reset_Radios       
     1327 UDATA0     _RxBuffer           
     1323 UDATA0     _RxBufferLen        
     1314 UDATA0     _RxBufferPos        
     1312 UDATA0     _RxBytesRemaining   
     1310 UDATA0     _RxFIFOLen          
     130e UDATA0     _RxThrBytes         
-    38e4 CODE       _SPI_Setup          
-    2180 UDATA0     _SPI_buf            
-    4d0e CODE       _SPI_deactivate     
-    4cfa CODE       _SPI_master_setup   
-    2be2 UDATA0     _SUB_events         
-    38ae CODE       _SUB_parseCmd       
-    38d6 CODE       _TI_CC_Wait         
-    3b42 CODE       _TXRX               
-    1978 UDATA0     _TxBuf              
+    387e CODE       _SPI_Setup          
+    1d94 UDATA0     _SPI_buf            
+    49f6 CODE       _SPI_deactivate     
+    49e2 CODE       _SPI_master_setup   
+    27f6 UDATA0     _SUB_events         
+    3848 CODE       _SUB_parseCmd       
+    3870 CODE       _TI_CC_Wait         
+    3adc CODE       _TXRX               
     1429 UDATA0     _TxBuffer           
     1318 UDATA0     _TxBufferPos        
     1316 UDATA0     _TxBytesRemaining   
-    45b6 CODE       _TxChar             
-    3270 ISR        _UC0_TX             
-    32f2 ISR        _UC0_rx             
-    31be ISR        _USB_TX             
-    3200 ISR        _USB_rx             
-    3ddc CODE       _Write_RF_Settings  
+    324e ISR        _UC0_TX             
+    32d0 ISR        _UC0_rx             
+    31be ISR        _UC1_TX             
+    31f4 ISR        _UC1_rx             
+    196c UDATA0     _UCA1_RxBuf         
+    1982 UDATA0     _UCA1_TxBuf         
+    42b0 CODE       _UCA1_TxChar        
+    3d76 CODE       _Write_RF_Settings  
     1100            ___RAM_Address      
     2000            ___RAM_Size         
     1100 IDATA0     ___begin_IDATA0     
@@ -50,89 +50,96 @@ SYMBOLS BY NAME
      138            ___crt_op2          
      13a            ___crt_reslo        
     130e IDATA0     ___end_IDATA0       
-    2c96 UDATA0     ___end_UDATA0       
-    2c94 UDATA0     ___format_extender  
-    389e CONST      ___hex_lc           
-    388e CONST      ___hex_uc           
-    5378 CODE       ___int16_mul        
-    5416 CODE       ___pre_padding      
-    53f8 CODE       ___print_padding    
-    5054 CODE       ___printf_lock      
-    5070 CODE       ___printf_unlock    
-    53ae CODE       ___putc             
-    4556 CODE       ___putchar          
+    28aa UDATA0     ___end_UDATA0       
+    28a8 UDATA0     ___format_extender  
+    3838 CONST      ___hex_lc           
+    3828 CONST      ___hex_uc           
+    53bc CODE       ___int16_mul        
+    545a CODE       ___pre_padding      
+    543c CODE       ___print_padding    
+    4d3c CODE       ___printf_lock      
+    4d58 CODE       ___printf_unlock    
+    53f2 CODE       ___putc             
+    424e CODE       ___putchar          
     3100 ISR        ___thunk_TXRX       
     31ba ISR        ___thunk___putchar  
-    538e CODE       ___uint16_div       
-    53a6 CODE       ___uint16_mod       
-    5470 CODE       ___vfprintf         
-    5470 CODE       ___vfprintf_int     
-    2be4 UDATA0     _arcBus_stat        
-    33c4 ISR        _bus_int            
+    53d2 CODE       ___uint16_div       
+    53ea CODE       ___uint16_mod       
+    54b4 CODE       ___vfprintf         
+    54b4 CODE       ___vfprintf_int     
+    27f8 UDATA0     _arcBus_stat        
+    33a2 ISR        _bus_int            
     131e UDATA0     _count              
-    4c8e CODE       _crc16              
+    4976 CODE       _crc16              
     1106 IDATA0     _crc16_tbl          
-    4c6e CODE       _crc8               
-    2c08 UDATA0     _ctl_current_time   
-    5308 CODE       _ctl_enter_isr      
-    5084 CODE       _ctl_events_init    
-    522c CODE       _ctl_events_set_clear
-    5098 CODE       _ctl_events_wait    
-    533c CODE       _ctl_exit_isr       
-    503c CODE       _ctl_get_current_time
-    4cd6 CODE       _ctl_handle_error   
-    4fc6 CODE       _ctl_increment_tick_from_isr
-    2c0d UDATA0     _ctl_interrupt_count
-    2c04 UDATA0     _ctl_last_schedule_time
+    4956 CODE       _crc8               
+    4f74 CODE       _ctl_byte_queue_init
+    5274 CODE       _ctl_byte_queue_post
+    50bc CODE       _ctl_byte_queue_post_multi
+    5194 CODE       _ctl_byte_queue_post_multi_nb
+    52a2 CODE       _ctl_byte_queue_post_nb
+    5204 CODE       _ctl_byte_queue_receive_multi_nb
+    52bc CODE       _ctl_byte_queue_receive_nb
+    281c UDATA0     _ctl_current_time   
+    534c CODE       _ctl_enter_isr      
+    4d6c CODE       _ctl_events_init    
+    4f14 CODE       _ctl_events_set_clear
+    4d80 CODE       _ctl_events_wait    
+    5380 CODE       _ctl_exit_isr       
+    4d24 CODE       _ctl_get_current_time
+    49be CODE       _ctl_handle_error   
+    4cae CODE       _ctl_increment_tick_from_isr
+    2821 UDATA0     _ctl_interrupt_count
+    2818 UDATA0     _ctl_last_schedule_time
     130c IDATA0     _ctl_libc_mutex     
-    4d1e CODE       _ctl_private_add_to_task_list
-    51a8 CODE       _ctl_private_events_schedule
-    528c CODE       _ctl_private_get_stack_start
-    528e CODE       _ctl_private_init_registers
-    4d6c CODE       _ctl_private_remove_from_task_list
-    4da6 CODE       _ctl_private_reschedule
-    52f0 CODE       _ctl_private_reschedule_from_api_call
-    2c0c UDATA0     _ctl_reschedule_on_last_isr_exit
-    4f1e CODE       _ctl_task_die       
-    2c0e UDATA0     _ctl_task_executing 
-    4e7c CODE       _ctl_task_init      
-    2c10 UDATA0     _ctl_task_list      
-    4eb0 CODE       _ctl_task_run       
-    4f46 CODE       _ctl_task_set_priority
-    2c02 UDATA0     _ctl_task_switch_callout
+    4a06 CODE       _ctl_private_add_to_task_list
+    4e90 CODE       _ctl_private_events_schedule
+    52d0 CODE       _ctl_private_get_stack_start
+    52d2 CODE       _ctl_private_init_registers
+    4a54 CODE       _ctl_private_remove_from_task_list
+    4a8e CODE       _ctl_private_reschedule
+    5334 CODE       _ctl_private_reschedule_from_api_call
+    2820 UDATA0     _ctl_reschedule_on_last_isr_exit
+    4c06 CODE       _ctl_task_die       
+    2822 UDATA0     _ctl_task_executing 
+    4b64 CODE       _ctl_task_init      
+    2824 UDATA0     _ctl_task_list      
+    4b98 CODE       _ctl_task_run       
+    4c2e CODE       _ctl_task_set_priority
+    2816 UDATA0     _ctl_task_switch_callout
     130a IDATA0     _ctl_time_increment 
-    4f84 CODE       _ctl_timeout_wait   
+    4c6c CODE       _ctl_timeout_wait   
     1306 IDATA0     _ctl_timeslice_period
     1320 UDATA0     _data_length        
-    2982 UDATA0     _i2c_buf            
-    2bc6 UDATA0     _idle_task          
-    466e CODE       _initARCbus         
-    4604 CODE       _initCLK            
-    4566 CODE       _initUART           
-    463e CODE       _init_timerA        
+    2596 UDATA0     _i2c_buf            
+    27da UDATA0     _idle_task          
+    4356 CODE       _initARCbus         
+    42ec CODE       _initCLK            
+    425e CODE       _init_UCA1_UART     
+    4326 CODE       _init_timerA        
     131a UDATA0     _k                  
-    41a2 CODE       _main               
-    4b0e CODE       _mainLoop           
-    5440 CODE       _memcpy             
-    5450 CODE       _memset             
+    413c CODE       _main               
+    47f6 CODE       _mainLoop           
+    5484 CODE       _memcpy             
+    5494 CODE       _memset             
     1102 IDATA0     _paTableLen         
     1100 IDATA0     _paTable_CC1101     
     1101 IDATA0     _paTable_CC2500     
     3104 ISR        _port2_ISR          
     1104 IDATA0     _powerState         
-    597a CODE       _printf             
-    59b6 CODE       _puts               
-    4cbe CODE       _set_ticker_time    
+    59be CODE       _printf             
+    59fa CODE       _puts               
+    49a6 CODE       _set_ticker_time    
     1730 UDATA0     _stack1             
     152c UDATA0     _stack2             
-    4652 CODE       _start_timerA       
+    433a CODE       _start_timerA       
     131c UDATA0     _state              
-    5460 CODE       _strlen             
-    3420 ISR        _task_tick          
+    54a4 CODE       _strlen             
+    33fe ISR        _task_tick          
     1934 UDATA0     _tasks              
     1325 UDATA0     _temp_count1        
     1324 UDATA0     _temp_count2        
-    2bfe UDATA0     _ticker_time        
+    2812 UDATA0     _ticker_time        
     1326 UDATA0     _uhf                
 
 
@@ -143,8 +150,8 @@ SYMBOLS BY VALUE
      138            ___crt_op2          
      13a            ___crt_reslo        
     1100 IDATA0     ___begin_IDATA0     
-    1100 IDATA0     _paTable_CC1101     
     1100            ___RAM_Address      
+    1100 IDATA0     _paTable_CC1101     
     1101 IDATA0     _paTable_CC2500     
     1102 IDATA0     _paTableLen         
     1104 IDATA0     _powerState         
@@ -152,9 +159,9 @@ SYMBOLS BY VALUE
     1306 IDATA0     _ctl_timeslice_period
     130a IDATA0     _ctl_time_increment 
     130c IDATA0     _ctl_libc_mutex     
-    130e IDATA0     ___end_IDATA0       
-    130e UDATA0     _RxThrBytes         
     130e UDATA0     ___begin_UDATA0     
+    130e UDATA0     _RxThrBytes         
+    130e IDATA0     ___end_IDATA0       
     1310 UDATA0     _RxFIFOLen          
     1312 UDATA0     _RxBytesRemaining   
     1314 UDATA0     _RxBufferPos        
@@ -174,100 +181,107 @@ SYMBOLS BY VALUE
     152c UDATA0     _stack2             
     1730 UDATA0     _stack1             
     1934 UDATA0     _tasks              
-    196c UDATA0     _RxBuf              
-    1978 UDATA0     _TxBuf              
+    196c UDATA0     _UCA1_RxBuf         
+    1982 UDATA0     _UCA1_TxBuf         
+    1d94 UDATA0     _SPI_buf            
     2000            ___RAM_Size         
-    2180 UDATA0     _SPI_buf            
-    2982 UDATA0     _i2c_buf            
-    29aa UDATA0     _BUS_stack          
-    2baa UDATA0     _ARC_bus_task       
-    2bc6 UDATA0     _idle_task          
-    2be2 UDATA0     _SUB_events         
-    2be4 UDATA0     _arcBus_stat        
-    2bfe UDATA0     _ticker_time        
-    2c02 UDATA0     _ctl_task_switch_callout
-    2c04 UDATA0     _ctl_last_schedule_time
-    2c08 UDATA0     _ctl_current_time   
-    2c0c UDATA0     _ctl_reschedule_on_last_isr_exit
-    2c0d UDATA0     _ctl_interrupt_count
-    2c0e UDATA0     _ctl_task_executing 
-    2c10 UDATA0     _ctl_task_list      
-    2c94 UDATA0     ___format_extender  
-    2c96 UDATA0     ___end_UDATA0       
+    2596 UDATA0     _i2c_buf            
+    25be UDATA0     _BUS_stack          
+    27be UDATA0     _ARC_bus_task       
+    27da UDATA0     _idle_task          
+    27f6 UDATA0     _SUB_events         
+    27f8 UDATA0     _arcBus_stat        
+    2812 UDATA0     _ticker_time        
+    2816 UDATA0     _ctl_task_switch_callout
+    2818 UDATA0     _ctl_last_schedule_time
+    281c UDATA0     _ctl_current_time   
+    2820 UDATA0     _ctl_reschedule_on_last_isr_exit
+    2821 UDATA0     _ctl_interrupt_count
+    2822 UDATA0     _ctl_task_executing 
+    2824 UDATA0     _ctl_task_list      
+    28a8 UDATA0     ___format_extender  
+    28aa UDATA0     ___end_UDATA0       
     3100 ISR        ___thunk_TXRX       
     3104 ISR        _port2_ISR          
     31ba ISR        ___thunk___putchar  
-    31be ISR        _USB_TX             
-    3200 ISR        _USB_rx             
-    3270 ISR        _UC0_TX             
-    32f2 ISR        _UC0_rx             
-    33c4 ISR        _bus_int            
-    33f2 ISR        _DMA_int            
-    3420 ISR        _task_tick          
-    388e CONST      ___hex_uc           
-    389e CONST      ___hex_lc           
-    38ae CODE       _SUB_parseCmd       
-    38b6 CODE       _Build_Packet       
-    38d6 CODE       _TI_CC_Wait         
-    38e4 CODE       _SPI_Setup          
-    3936 CODE       _Reset_Radios       
-    39cc CODE       _Radio_Strobe       
-    39fc CODE       _Radio_Write_Registers
-    3a36 CODE       _Radio_Write_Burst_Registers
-    3a88 CODE       _Radio_Read_Burst_Registers
-    3afc CODE       _Radio_Read_Status  
-    3b42 CODE       _TXRX               
-    3ddc CODE       _Write_RF_Settings  
-    41a2 CODE       _main               
-    4556 CODE       ___putchar          
-    4566 CODE       _initUART           
-    45b6 CODE       _TxChar             
-    4604 CODE       _initCLK            
-    463e CODE       _init_timerA        
-    4652 CODE       _start_timerA       
-    465a CODE       _ARC_setup          
-    466e CODE       _initARCbus         
-    4b0e CODE       _mainLoop           
-    4b48 CODE       _BUS_cmd_init       
-    4b5a CODE       _BUS_cmd_tx         
-    4bd6 CODE       _BUS_i2c_tx         
-    4c6e CODE       _crc8               
-    4c8e CODE       _crc16              
-    4cbe CODE       _set_ticker_time    
-    4cd6 CODE       _ctl_handle_error   
-    4cfa CODE       _SPI_master_setup   
-    4d0e CODE       _SPI_deactivate     
-    4d1e CODE       _ctl_private_add_to_task_list
-    4d6c CODE       _ctl_private_remove_from_task_list
-    4da6 CODE       _ctl_private_reschedule
-    4e7c CODE       _ctl_task_init      
-    4eb0 CODE       _ctl_task_run       
-    4f1e CODE       _ctl_task_die       
-    4f46 CODE       _ctl_task_set_priority
-    4f84 CODE       _ctl_timeout_wait   
-    4fc6 CODE       _ctl_increment_tick_from_isr
-    503c CODE       _ctl_get_current_time
-    5054 CODE       ___printf_lock      
-    5070 CODE       ___printf_unlock    
-    5084 CODE       _ctl_events_init    
-    5098 CODE       _ctl_events_wait    
-    51a8 CODE       _ctl_private_events_schedule
-    522c CODE       _ctl_events_set_clear
-    528c CODE       _ctl_private_get_stack_start
-    528e CODE       _ctl_private_init_registers
-    52f0 CODE       _ctl_private_reschedule_from_api_call
-    5308 CODE       _ctl_enter_isr      
-    533c CODE       _ctl_exit_isr       
-    5378 CODE       ___int16_mul        
-    538e CODE       ___uint16_div       
-    53a6 CODE       ___uint16_mod       
-    53ae CODE       ___putc             
-    53f8 CODE       ___print_padding    
-    5416 CODE       ___pre_padding      
-    5440 CODE       _memcpy             
-    5450 CODE       _memset             
-    5460 CODE       _strlen             
-    5470 CODE       ___vfprintf         
-    5470 CODE       ___vfprintf_int     
-    597a CODE       _printf             
-    59b6 CODE       _puts               
+    31be ISR        _UC1_TX             
+    31f4 ISR        _UC1_rx             
+    324e ISR        _UC0_TX             
+    32d0 ISR        _UC0_rx             
+    33a2 ISR        _bus_int            
+    33d0 ISR        _DMA_int            
+    33fe ISR        _task_tick          
+    3828 CONST      ___hex_uc           
+    3838 CONST      ___hex_lc           
+    3848 CODE       _SUB_parseCmd       
+    3850 CODE       _Build_Packet       
+    3870 CODE       _TI_CC_Wait         
+    387e CODE       _SPI_Setup          
+    38d0 CODE       _Reset_Radios       
+    3966 CODE       _Radio_Strobe       
+    3996 CODE       _Radio_Write_Registers
+    39d0 CODE       _Radio_Write_Burst_Registers
+    3a22 CODE       _Radio_Read_Burst_Registers
+    3a96 CODE       _Radio_Read_Status  
+    3adc CODE       _TXRX               
+    3d76 CODE       _Write_RF_Settings  
+    413c CODE       _main               
+    424e CODE       ___putchar          
+    425e CODE       _init_UCA1_UART     
+    42b0 CODE       _UCA1_TxChar        
+    42ec CODE       _initCLK            
+    4326 CODE       _init_timerA        
+    433a CODE       _start_timerA       
+    4342 CODE       _ARC_setup          
+    4356 CODE       _initARCbus         
+    47f6 CODE       _mainLoop           
+    4830 CODE       _BUS_cmd_init       
+    4842 CODE       _BUS_cmd_tx         
+    48be CODE       _BUS_i2c_tx         
+    4956 CODE       _crc8               
+    4976 CODE       _crc16              
+    49a6 CODE       _set_ticker_time    
+    49be CODE       _ctl_handle_error   
+    49e2 CODE       _SPI_master_setup   
+    49f6 CODE       _SPI_deactivate     
+    4a06 CODE       _ctl_private_add_to_task_list
+    4a54 CODE       _ctl_private_remove_from_task_list
+    4a8e CODE       _ctl_private_reschedule
+    4b64 CODE       _ctl_task_init      
+    4b98 CODE       _ctl_task_run       
+    4c06 CODE       _ctl_task_die       
+    4c2e CODE       _ctl_task_set_priority
+    4c6c CODE       _ctl_timeout_wait   
+    4cae CODE       _ctl_increment_tick_from_isr
+    4d24 CODE       _ctl_get_current_time
+    4d3c CODE       ___printf_lock      
+    4d58 CODE       ___printf_unlock    
+    4d6c CODE       _ctl_events_init    
+    4d80 CODE       _ctl_events_wait    
+    4e90 CODE       _ctl_private_events_schedule
+    4f14 CODE       _ctl_events_set_clear
+    4f74 CODE       _ctl_byte_queue_init
+    50bc CODE       _ctl_byte_queue_post_multi
+    5194 CODE       _ctl_byte_queue_post_multi_nb
+    5204 CODE       _ctl_byte_queue_receive_multi_nb
+    5274 CODE       _ctl_byte_queue_post
+    52a2 CODE       _ctl_byte_queue_post_nb
+    52bc CODE       _ctl_byte_queue_receive_nb
+    52d0 CODE       _ctl_private_get_stack_start
+    52d2 CODE       _ctl_private_init_registers
+    5334 CODE       _ctl_private_reschedule_from_api_call
+    534c CODE       _ctl_enter_isr      
+    5380 CODE       _ctl_exit_isr       
+    53bc CODE       ___int16_mul        
+    53d2 CODE       ___uint16_div       
+    53ea CODE       ___uint16_mod       
+    53f2 CODE       ___putc             
+    543c CODE       ___print_padding    
+    545a CODE       ___pre_padding      
+    5484 CODE       _memcpy             
+    5494 CODE       _memset             
+    54a4 CODE       _strlen             
+    54b4 CODE       ___vfprintf         
+    54b4 CODE       ___vfprintf_int     
+    59be CODE       _printf             
+    59fa CODE       _puts               

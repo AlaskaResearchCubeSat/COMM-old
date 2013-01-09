@@ -13,8 +13,6 @@ int SUB_parseCmd(unsigned char src, unsigned char cmd, unsigned char *data, unsi
   return ERR_UNKNOWN_CMD;
 }
 
-
-
 //Create string of data and of specified length and load into RxBuffer
 void Build_Packet(int data_length)
 {

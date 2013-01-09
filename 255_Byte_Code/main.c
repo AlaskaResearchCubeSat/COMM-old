@@ -18,7 +18,7 @@ void main(void)
   ARC_setup();
   
   //Initialize UART
-  initUART();                            
+  init_UCA1_UART();                            
   
   // Initalizes bus interface
   initARCbus(BUS_ADDR_COMM);
@@ -79,10 +79,9 @@ void main(void)
   temp_count1 = 0;
   temp_count2 = 0;
   P2IFG = 0;     // Clear flags
-  _EINT();
                      
   mainLoop();
-
+}
 
 #pragma vector=PORT2_VECTOR
 __interrupt void port2_ISR (void)

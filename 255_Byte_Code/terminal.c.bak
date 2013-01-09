@@ -8,7 +8,7 @@
 
 //make printf send over UART
 int __putchar(int ch){
-  return UCA1_TxChar(ch);
+  return TxChar(ch);
 }
 
 

@@ -1,50 +1,36 @@
-
-
-
 #include <msp430.h>
-#include "uart.h"
+#include <ctl_api.h>
+#include "UCA1_uart.h"
 
-//buffers for UART
-struct Tx TxBuf;
-struct Rx RxBuf;
+//buffers for USB UART
+struct Tx UCA1_TxBuf;
+struct Rx UCA1_RxBuf;
 
 //UART TX ISR called to transmit UART data
-void USB_TX(void) __interrupt[USCIAB1TX_VECTOR]{
+void UC1_TX(void) __ctl_interrupt[USCIAB1TX_VECTOR]{
   unsigned char flags=UC1IFG&(UC1IE);
-  //process UART TXIFG
+//=============[UART Transmit Handler]===============
   if(flags&UCA1TXIFG){
-    unsigned short t=TxBuf.out;
-    //check if their are more chars
-    if(TxBuf.in!=t){
-      //more chars TX next
-      UCA1TXBUF=TxBuf.buf[t++];
-      TxBuf.out=(t)%TX_SIZE;
-    }else{
+    unsigned char c;
+    if (ctl_byte_queue_receive_nb(&UCA1_TxBuf.queue,&c)==0){
       //buffer empty disable TX
-      TxBuf.done=1;
+      UCA1_TxBuf.done=1;
       UC1IFG&=~UCA1TXIFG;
+    }else{
+      //send char to UART
+      UCA1TXBUF=c;
     }
-    //more room in buffer, exit LPM
-    LPM0_EXIT;
   }
 }
 
 // receive UART ISR
-void USB_rx(void) __interrupt[USCIAB1RX_VECTOR]{
+void UC1_rx(void) __ctl_interrupt[USCIAB1RX_VECTOR]{
   unsigned char flags=UC1IFG&(UC1IE);
-  //process UART RXIFG
+//==============[UART Receive Handler]==========================
   if(flags&UCA1RXIFG){
-    unsigned int t;
-    t=(RxBuf.in+1)%RX_SIZE;
-    //check if there is room
-    if(t!=RxBuf.out){
-      //write char in buffer
-      RxBuf.buf[RxBuf.in]=UCA1RXBUF;
-      //advance index
-      RxBuf.in=t;
-      //new char ready, exit LPM
-      LPM0_EXIT;
-    }
-    //if no room char is lost
+    //read a byte from UART
+    unsigned char c=UCA1RXBUF;
+    //put byte in queue, if no room too darn bad
+    ctl_byte_queue_post_nb(&UCA1_RxBuf.queue,c);
   }
 }

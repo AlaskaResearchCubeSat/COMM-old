@@ -13,7 +13,7 @@
 #include <Radio_Registers.h>
 #include <string.h>
 #include <stdio.h>
-#include <uart.h>
+#include <UCA1_uart.h>
 
 extern char TxBuffer[258];
 extern char RxBuffer[258];
