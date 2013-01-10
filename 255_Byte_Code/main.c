@@ -14,11 +14,12 @@ unsigned stack2[1+256+1];
 
 void main(void)
 {                                           
+
   // Sets up Timer A, clocks and pauses the watchdog timer
   ARC_setup();
   
   // Sets up the radio's SPI 
-  SPI_Setup();               
+  SPI_Setup();    
 
   // Set up the GDO interrupts for the radios and also the output pins for PA switches, use with engineering board
   //radio_interrupts();
@@ -47,8 +48,8 @@ void main(void)
   //2.3 -- GDO2  CC2500
   P2DIR &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                      
   P2IES &= ~(BIT0 + BIT1 + BIT2 + BIT3);    // Low-to-high transition for interrupts
-  P2IE |= BIT0 + BIT1 + BIT2 + BIT3;        // Enable ints
   P2IFG = 0;                                // Clear flags
+  P2IE |= BIT0 + BIT1 + BIT2 + BIT3;        // Enable ints
   
   //Initialize UART
   init_UCA1_UART();                           
@@ -69,18 +70,20 @@ void main(void)
   
   //Create tasks
   ctl_task_run(&tasks[0],10,TXRX,NULL,"TXRX",sizeof(stack1)/sizeof(stack1[0]) - 2,stack1+1,0);
-  //ctl_taks_run(&tasks[1],1,name,NULL,"name",sizeof(stack2)/sizeof(stack2[0]) - 2,stack2+1,0);
+  ctl_task_run(&tasks[1],1,sub_events,NULL,"sub_events",sizeof(stack2)/sizeof(stack2[0]) - 2,stack2+1,0);
   
   data_length = 255;
   // RxBufferLen = sizeof(RxBuffer);          // Length of packet to be received  This does not work for some reason
 
+  TxThrBytes = 30;
   RxThrBytes = 32;
   RxBufferLen = 255;
   temp_count1 = 0;
   temp_count2 = 0;
+  state = 0;
   P2IFG = 0;     // Clear flags
 
-  printf("Ready");
+  printf("Ready\r\n");
                      
   mainLoop();
 }
@@ -89,7 +92,8 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
 {
    if (P2IFG & BIT0)
     {
-        switch(state){
+        switch(state)
+        {
             case IDLE:
                  ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_SYNC,0);
                  state = RX_START;
@@ -101,9 +105,13 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
                  break;
 
             case RX_START:
+                 P2IFG &= ~BIT0;
                  break;
-
-                     }
+            
+            case RX_RUNNING:
+                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_END,0);
+                 break;
+        }
     P2IFG &= ~(BIT0);
     } 
 
@@ -118,8 +126,17 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
                  ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_THR,0);
                  state = TX_RUNNING;
                  break;
+            
+            case TX_RUNNING:
+                  ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_THR,0);
+                  break;
 
             case RX_START:
+                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_THR,0);
+                 state = RX_RUNNING;
+                 break;
+            
+            case RX_RUNNING:
                  ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_THR,0);
                  state = RX_RUNNING;
                  break;
@@ -171,5 +188,5 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
       uhf = 0;
       P2IFG &= ~BIT3;
     }
-P2IFG = 0;
+//P2IFG = 0;
 }

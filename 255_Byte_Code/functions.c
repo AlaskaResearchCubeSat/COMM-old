@@ -24,11 +24,14 @@ for (i = 1; i < data_length; i++)      // Fill up buffer with data
 TxBuffer[data_length - 1] = 0xF0;
 }
 
-void TI_CC_Wait(unsigned int cycles)
+/*void TI_CC_Wait(unsigned int cycles)
 {
-  while(cycles>15)                          // 15 cycles consumed by overhead
+  /*while(cycles>15)                          // 15 cycles consumed by overhead
     cycles = cycles - 6;                    // 6 cycles consumed each iteration
-}
+  __delay_cycles(16*cycles);
+}*/
+
+#define TI_CC_Wait(c) (__delay_cycles(16*c))
 
 void radio_interrupts(void)
 {
@@ -58,7 +61,7 @@ void SPI_Setup(void)
   UCB1BR0 = 16;      //Set frequency divider so SPI runs at 16/16 = 1 MHz
   UCB1BR1 = 0;
 
-  UC1IE |= UCB1TXIE + UCB1RXIE;
+  //UC1IE |= UCB1TXIE + UCB1RXIE;
 
   P5SEL |= BIT1 + BIT2 + BIT3;               //Select special sources for Port 5.1--MOSI, 5.2--MISO, 5.3--CLK
   P5DIR |= BIT1 + BIT3;                      //Set outputs: MOSI and CLK
@@ -257,29 +260,37 @@ void TXRX(void *p) __toplevel
 while(1)
   {  
   e = ctl_events_wait(CTL_EVENT_WAIT_ANY_EVENTS_WITH_AUTO_CLEAR,&radio_event_flags,RADIO_EVENTS,CTL_TIMEOUT_NONE,0);
-  
+      
   if(e & CC1101_EV_RX_SYNC)
   {
-      RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC1101) & TI_CCxxx0_NUM_RXBYTES);
+      //RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC1101) & TI_CCxxx0_NUM_RXBYTES);
+       //printf("RX Sync %i \r\n",RxFIFOLen);
       PktLen = 255; //Radio_Read_Registers(TI_CCxxx0_RXFIFO, CC1101);       // Read length byte
-      RxBytesRemaining = PktLen;                                  // Set number of bytes left to receive
-      Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);
-      RxBufferPos += RxFIFOLen;
-      RxBytesRemaining -= RxFIFOLen;
+      RxBytesRemaining = PktLen;    // Set number of bytes left to receive
+      //if (RxFIFOLen > 0){
+       // Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);
+        //RxBufferPos += RxFIFOLen;
+        //RxBytesRemaining -= RxFIFOLen;
+      //}
+      P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
+      P2IES |= (BIT0);                                                            // Change edge interrupt happens on
+      P2IFG &= ~BIT0;                                                                         // Clear flags
+      P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
   }
   
   if(e & CC1101_EV_RX_THR)
   {
-             if (RxBytesRemaining > 0)
+           if (RxBytesRemaining > 0)
            {
                if (RxBytesRemaining > RxThrBytes)
                {
+                   
                    count = RxThrBytes;
                    RxBytesRemaining = RxBytesRemaining - RxThrBytes;
                    temp_count1++;
                }
                else 
-               {
+               {   
                    count = RxBytesRemaining;
                    RxBytesRemaining = 0;
                }
@@ -295,20 +306,43 @@ while(1)
                      for (k=0; k < PktLen; k++)
                      {
                          printf("%d ", RxBuffer[k]);
-                         printf("\r\n");
-                     }
+                      }
+                     printf("\r\n");
 
            }
  }
  
+   if(e & CC1101_EV_RX_END)
+   {
+   RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC1101) & TI_CCxxx0_NUM_RXBYTES);
+   Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);
+   P7OUT ^= BIT1;
+   printf("Receiving packet on CC1101\r\n");
+   printf("\r\n");
+   for (k=0; k < PktLen; k++)
+   {
+      printf("%3d ", RxBuffer[k]);
+      if (k % 20 == 19)
+       printf("\r\n");
+   }        
+   printf("\r\n");
+   state = IDLE;
+   P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
+   P2IES &= ~(BIT0);                                                            // Change edge interrupt happens on
+   P2IFG &= ~BIT0;                                                                         // Clear flags
+   P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
+   }
+ 
+ 
    if(e & CC1101_EV_TX_START)
- {
+   {
+          state = TX_START;
           P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
           Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x02, CC1101);                                // Set GDO2 to interrupt on FIFO thresholds
           P2IES |= (BIT0 + BIT1 + BIT2 + BIT3);                                              // Change edge interrupt happens on
           P2IFG = 0;                                                                         // Clear flags
           P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
-          Build_Packet(data_length);
+          //Build_Packet(data_length);
           if (TxBytesRemaining > 64)
           {
               count = 64;
@@ -322,15 +356,16 @@ while(1)
           Radio_Write_Burst_Registers(TI_CCxxx0_TXFIFO, TxBuffer+TxBufferPos, count, CC1101);     // Write TX data
           TxBufferPos += count;
           Radio_Strobe(TI_CCxxx0_STX, CC1101);                                                  // Set radio state to Tx 
-}
+   }
  
  if(e & CC1101_EV_TX_THR)
+ {
           if (TxBytesRemaining > 0) 
           {
-             if (TxBytesRemaining > 30)
+             if (TxBytesRemaining > TxThrBytes)
              {
-                 count = 30;
-                 TxBytesRemaining = TxBytesRemaining - 30;
+                 count = TxThrBytes;
+                 TxBytesRemaining = TxBytesRemaining - TxThrBytes;
              }
              else
              {
@@ -339,6 +374,7 @@ while(1)
              }
              Radio_Write_Burst_Registers(TI_CCxxx0_TXFIFO, TxBuffer + TxBufferPos, count, CC1101);
              TxBufferPos += count;
+             printf("State: %x ", Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101));
           }
           if (TxBytesRemaining == 0)
           {
@@ -362,6 +398,7 @@ while(1)
               P2IFG = 0;                                                                         // Clear flags
               P2IE |= BIT0 + BIT1 + BIT2 + BIT3; 
           }
+ }
   if(e & CC2500_EV_RX_SYNC)
   {
       RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC2500) & TI_CCxxx0_NUM_RXBYTES);
@@ -374,7 +411,7 @@ while(1)
   
   if(e & CC2500_EV_RX_THR)
   {
-             if (RxBytesRemaining > 0)
+          if (RxBytesRemaining > 0)
            {
                if (RxBytesRemaining > RxThrBytes)
                {
@@ -429,6 +466,7 @@ while(1)
 }
  
  if(e & CC2500_EV_TX_THR)
+ {
           if (TxBytesRemaining > 0) 
           {
              if (TxBytesRemaining > 30)
@@ -465,8 +503,61 @@ while(1)
               P2IFG = 0;                                                                         // Clear flags
               P2IE |= BIT0 + BIT1 + BIT2 + BIT3; 
           }
+ }
   }
-}    
+}
+
+void sub_events(void *p) __toplevel{
+  unsigned int e,len;
+  int i;
+  unsigned char buf[10],*ptr;
+  for(;;){
+    e=ctl_events_wait(CTL_EVENT_WAIT_ANY_EVENTS_WITH_AUTO_CLEAR,&SUB_events,SUB_EV_ALL,CTL_TIMEOUT_NONE,0);
+    if(e&SUB_EV_PWR_OFF){
+      //print message
+      puts("System Powering Down\r");
+    }
+    if(e&SUB_EV_PWR_ON){
+      //print message
+      puts("System Powering Up\r");
+    }
+    if(e&SUB_EV_SEND_STAT){
+      //send status
+      //puts("Sending status\r");
+      //setup packet 
+      //TODO: put actual command for subsystem response
+      ptr=BUS_cmd_init(buf,20);
+      //TODO: fill in telemitry data
+      //send command
+      BUS_cmd_tx(BUS_ADDR_CDH,buf,0,0,SEND_FOREGROUND);
+    }
+    if(e&SUB_EV_TIME_CHECK){
+      printf("time ticker = %li\r\n",get_ticker_time());
+    }
+    if(e&SUB_EV_SPI_DAT){
+      puts("SPI data recived:\r");
+      //get length
+      len=arcBus_stat.spi_stat.len;
+      //print out data
+      for(i=0;i<len;i++){
+        //printf("0x%02X ",rx[i]);
+        printf("%03i ",arcBus_stat.spi_stat.rx[i]);
+      }
+      printf("\r\n");
+     
+    TxBuffer[0] = len+1; 
+     for (i=0; i < len; i++)
+      {
+        TxBuffer[i+1] = arcBus_stat.spi_stat.rx[i];
+      }
+      TxBytesRemaining = len+1;
+      ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_START,0);
+     }
+    if(e&SUB_EV_SPI_ERR_CRC){
+      puts("SPI bad CRC\r");
+    }
+  }
+}
 
 void Write_RF_Settings(void)
 {

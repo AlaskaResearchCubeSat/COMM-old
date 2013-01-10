@@ -29,10 +29,9 @@
   <ProjectSessionItem path="255_Packet" name="unnamed" />
   <ProjectSessionItem path="255_Packet;255_Packet" name="unnamed" />
   <ProjectSessionItem path="255_Packet;255_Packet;Source Files" name="unnamed" />
-  <ProjectSessionItem path="255_Packet;255_Packet;System Files" name="unnamed" />
  </Project>
  <Register1>
-  <RegisterWindow openNodes="Port P1;UCSI_B1 SPI Mode" binaryNodes="Port P1/P1IFG;Port P1/P1IE;Port P2/P2IFG;Port P2/P2IES;Port P2/P2IE" hiddenNodes="" unsignedNodes="" visibleGroups="Port P1;Port P2;UCSI_B1 SPI Mode;SFR" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="Port P2;Port P7" binaryNodes="Port P2/P2IFG;Port P2/P2IES;Port P2/P2IE" hiddenNodes="" unsignedNodes="" visibleGroups="Port P2;UCSI_B1 SPI Mode;Port P7" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register1>
  <Register2>
   <RegisterWindow openNodes="" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
@@ -49,11 +48,11 @@
  </TraceWindow>
  <Watch1>
   <Watches active="1" update="Never" >
-   <Watchpoint evalMode="2" linenumber="180" numelements="258" evalType="0" radix="10" name="RxBuffer" expression="RxBuffer" filename="c:/users/standard/documents/github/comm/255_byte_code/main.c" />
-   <Watchpoint linenumber="182" radix="10" name="PktLen" expression="PktLen" filename="c:/users/standard/documents/github/comm/main.c" />
-   <Watchpoint linenumber="183" radix="10" name="RxBytesRemaining" expression="RxBytesRemaining" filename="c:/users/standard/documents/github/comm/main.c" />
-   <Watchpoint linenumber="181" radix="10" name="RxFIFOLen" expression="RxFIFOLen" filename="c:/users/standard/documents/github/comm/main.c" />
-   <Watchpoint linenumber="185" radix="10" name="RxBufferPos" expression="RxBufferPos" filename="c:/users/standard/documents/github/comm/main.c" />
+   <Watchpoint linenumber="346" radix="10" name="TxBytesRemaining" expression="TxBytesRemaining" filename="z:/software/local/comm/255_byte_code/functions.c" />
+   <Watchpoint linenumber="357" radix="10" name="TxBufferPos" expression="TxBufferPos" filename="z:/software/local/comm/255_byte_code/functions.c" />
+   <Watchpoint linenumber="348" radix="10" name="count" expression="count" filename="z:/software/local/comm/255_byte_code/functions.c" />
+   <Watchpoint evalMode="2" linenumber="356" numelements="258" evalType="0" radix="10" name="TxBuffer" expression="TxBuffer" filename="z:/software/local/comm/255_byte_code/functions.c" />
+   <Watchpoint linenumber="83" radix="10" name="state" expression="state" filename="z:/software/local/comm/255_byte_code/main.c" />
   </Watches>
  </Watch1>
  <Watch2>
@@ -66,16 +65,18 @@
   <Watches active="0" update="Never" />
  </Watch4>
  <Files>
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="31" debugPath="Z:\Software\Local\COMM\255_Byte_Code\main.c" y="70" path="Z:\Software\Local\COMM\255_Byte_Code\main.c" left="0" selected="0" name="unnamed" top="36" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="37" debugPath="Z:\Software\Local\COMM\255_Byte_Code\functions.c" y="492" path="Z:\Software\Local\COMM\255_Byte_Code\functions.c" left="0" selected="1" name="unnamed" top="468" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="39" debugPath="Z:\Software\Local\COMM\255_Byte_Code\functions.h" y="39" path="Z:\Software\Local\COMM\255_Byte_Code\functions.h" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="57" debugPath="Z:\Software\Local\COMM\255_Byte_Code\include.c" y="11" path="Z:\Software\Local\COMM\255_Byte_Code\include.c" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="22" debugPath="Z:\Software\Local\COMM\255_Byte_Code\include.h" y="11" path="Z:\Software\Local\COMM\255_Byte_Code\include.h" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\software\bus\library\ARCbus.h" y="3" path="Z:\software\bus\library\ARCbus.h" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="30" debugPath="Z:\software\bus\library\ARCbus.c" y="263" path="Z:\software\bus\library\ARCbus.c" left="0" selected="0" name="unnamed" top="236" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Local\COMM\255_Byte_Code\UCint.c" y="36" path="Z:\Software\Local\COMM\255_Byte_Code\UCint.c" left="0" selected="0" name="unnamed" top="9" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="31" debugPath="Z:\Software\Local\COMM\255_Byte_Code\UCA1_uart.c" y="40" path="Z:\Software\Local\COMM\255_Byte_Code\UCA1_uart.c" left="0" selected="0" name="unnamed" top="30" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="3" debugPath="Z:\software\local\comm\255_byte_code\terminal.c" y="61" path="Z:\software\local\comm\255_byte_code\terminal.c" left="0" selected="0" name="unnamed" top="36" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="1" debugPath="Z:\Software\Local\COMM\255_Byte_Code\main.c" y="88" path="Z:\Software\Local\COMM\255_Byte_Code\main.c" left="0" selected="0" name="unnamed" top="65" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="36" debugPath="Z:\Software\Local\COMM\255_Byte_Code\functions.c" y="378" path="Z:\Software\Local\COMM\255_Byte_Code\functions.c" left="0" selected="1" name="unnamed" top="372" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Local\COMM\255_Byte_Code\functions.h" y="25" path="Z:\Software\Local\COMM\255_Byte_Code\functions.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="67" debugPath="Z:\Software\Local\COMM\255_Byte_Code\include.c" y="12" path="Z:\Software\Local\COMM\255_Byte_Code\include.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="74" debugPath="Z:\Software\Local\COMM\255_Byte_Code\include.h" y="23" path="Z:\Software\Local\COMM\255_Byte_Code\include.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\software\bus\library\ARCbus.h" y="37" path="Z:\software\bus\library\ARCbus.h" left="0" selected="0" name="unnamed" top="24" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\software\bus\library\ARCbus.c" y="518" path="Z:\software\bus\library\ARCbus.c" left="0" selected="0" name="unnamed" top="483" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Local\COMM\255_Byte_Code\UCint.c" y="9" path="Z:\Software\Local\COMM\255_Byte_Code\UCint.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Local\COMM\255_Byte_Code\UCA1_uart.c" y="40" path="Z:\Software\Local\COMM\255_Byte_Code\UCA1_uart.c" left="0" selected="0" name="unnamed" top="30" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\software\local\comm\255_byte_code\terminal.c" y="61" path="Z:\software\local\comm\255_byte_code\terminal.c" left="0" selected="0" name="unnamed" top="36" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\BUS\library\error.c" y="0" path="Z:\Software\BUS\library\error.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Local\COMM\255_Byte_Code\Radio_Registers.h" y="76" path="Z:\Software\Local\COMM\255_Byte_Code\Radio_Registers.h" left="0" selected="0" name="unnamed" top="53" />
  </Files>
- <MSP430CrossStudioWindow activeProject="255_Packet" autoConnectTarget="Board 1" debugSearchFileMap="" fileDialogInitialDirectory="C:\Program Files (x86)\Rowley Associates Limited\CrossWorks for MSP430 2.1\ctl\source" fileDialogDefaultFilter="" autoConnectCapabilities="3455" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+ <MSP430CrossStudioWindow activeProject="255_Packet" autoConnectTarget="Board 1" debugSearchFileMap="" fileDialogInitialDirectory="Z:\Software\BUS\library" fileDialogDefaultFilter="*.c" autoConnectCapabilities="3455" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>
