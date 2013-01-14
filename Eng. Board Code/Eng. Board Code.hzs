@@ -63,9 +63,6 @@
  <Watch4>
   <Watches active="0" update="Never" />
  </Watch4>
- <Files>
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\main.c" y="0" path="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\main.c" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\radio_interrupts.c" y="20" path="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\radio_interrupts.c" left="0" selected="1" name="unnamed" top="20" />
- </Files>
- <MSP430CrossStudioWindow activeProject="Eng. Board Code" autoConnectTarget="TI MSP-FET430UIF (JTAG)" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code" fileDialogDefaultFilter="*.c" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+ <Files/>
+ <MSP430CrossStudioWindow activeProject="Eng. Board Code" autoConnectTarget="Board 2" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code" fileDialogDefaultFilter="*.c" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>
