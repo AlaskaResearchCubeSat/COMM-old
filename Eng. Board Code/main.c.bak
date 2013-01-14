@@ -53,7 +53,7 @@ __interrupt void TA_ISR (void)
   P7OUT ^= BIT1;
   Build_Packet(data_length);   //Generate fake data
    
-  RF_Send_Packet(TxBuffer, packet_length, CC1101);
+  //RF_Send_Packet(TxBuffer, packet_length, CC1101);
 
 /*
   printf("\r\n");
