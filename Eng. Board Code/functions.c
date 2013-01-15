@@ -265,47 +265,25 @@ Tx_Flag = 1;
 void Write_RF_Settings(void)
 {
 // CC1101
-// Deviation = 5.157471 
-// Base frequency = 432.999817 
-// Carrier frequency = 432.999817 
-// Channel number = 0 
-// Carrier frequency = 432.999817 
-// Modulated = true 
-// Modulation format = GFSK 
-// Manchester enable = false 
-// Sync word qualifier mode = 30/32 sync word bits detected 
-// Preamble count = 4 
-// Channel spacing = 199.951172 kHz
-// Carrier frequency = 432.999817 MHz
-// Data rate = 9.59587 kbps
-// RX filter BW = 58.035714 
-// Data format = Normal mode 
-// Length config = Variable packet length mode. Packet length configured by the first byte after sync word 
-// CRC enable = true 
-// Packet length = 255 
-// Device address = 0 
-// Address config = No address check 
-// CRC autoflush = false 
-// PA ramping = false 
-// TX power = 0
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x00, 1);
-Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x0F, 1);   // FIFO Threshold: 33 bytes in TX FIFO and 32 in RX FIFO
+Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x07, 1);   // FIFO Threshold: 33 bytes in TX FIFO and 32 in RX FIFO
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,  0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_FSCTRL1,  0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ2,    0x10, 1);
-Radio_Write_Registers(TI_CCxxx0_FREQ1,    0xA7, 1);
-Radio_Write_Registers(TI_CCxxx0_FREQ0,    0x62, 1);
+Radio_Write_Registers(TI_CCxxx0_FREQ1,    0xC4, 1);
+Radio_Write_Registers(TI_CCxxx0_FREQ0,    0xEC, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG4,  0xF8, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG3,  0x83, 1);
-Radio_Write_Registers(TI_CCxxx0_MDMCFG2,  0x13, 1);
-Radio_Write_Registers(TI_CCxxx0_MDMCFG1,  0x22, 1);
+Radio_Write_Registers(TI_CCxxx0_MDMCFG2,  0x03, 1);  // High byte: 0000 is 2-FSK and 0001 is GFSK; Low byte: 0000 no preamble/sync, 0001 15/16 sync words detected, 0011 30/32 sync words
+Radio_Write_Registers(TI_CCxxx0_MDMCFG1,  0x22, 1);  // High byte: 0010 is 4 bytes of preamble, 0100 is 8 bytes of preamble
 Radio_Write_Registers(TI_CCxxx0_MDMCFG0,  0xF8, 1);
 Radio_Write_Registers(TI_CCxxx0_CHANNR,   0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_DEVIATN,  0x15, 1);
 Radio_Write_Registers(TI_CCxxx0_FREND1,   0x56, 1);
 Radio_Write_Registers(TI_CCxxx0_FREND0,   0x10, 1);
 Radio_Write_Registers(TI_CCxxx0_MCSM0,    0x18, 1);
+Radio_Write_Registers(TI_CCxxx0_MCSM1,    0x3E, 1);
 Radio_Write_Registers(TI_CCxxx0_FOCCFG,   0x16, 1);
 Radio_Write_Registers(TI_CCxxx0_BSCFG,    0x6C, 1);
 Radio_Write_Registers(TI_CCxxx0_AGCCTRL2, 0x03, 1);
