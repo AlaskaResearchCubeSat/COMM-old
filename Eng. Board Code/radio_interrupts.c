@@ -18,6 +18,6 @@ void radio_interrupts(void)
 
 //Set up amplifier switches, RF_SW1 for 430 MHz amplifier, RF_SW2 for 2.4 GHz amplifier
 P6DIR |= RF_SW1 + RF_SW2;                                                  // Set amplifier switches as outputs
-P6OUT &= ~(RF_SW1 + RF_SW2);                                               // Bring pins low to disable both PAs 
+P6OUT |= (RF_SW1 + RF_SW2);                                               // Disable both amplifiers 
 }
 
