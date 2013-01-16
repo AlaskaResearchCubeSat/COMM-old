@@ -101,8 +101,16 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
                  break;
 
             case TX_START:
+                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_END,0);
+                 state = IDLE;
                  P2IFG &= ~BIT0;
                  break;
+            
+            case TX_RUNNING:
+                ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_END,0);
+                state = IDLE;
+                P2IFG &= ~BIT0;
+                break;
 
             case RX_START:
                  P2IFG &= ~BIT0;
@@ -118,6 +126,7 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
     if (P2IFG & BIT1) 
     {
         switch(state)
+    
         {
             case IDLE:
                  break;
