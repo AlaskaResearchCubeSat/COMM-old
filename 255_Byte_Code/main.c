@@ -77,7 +77,7 @@ void main(void)
 
   TxThrBytes = 30;
   RxThrBytes = 32;
-  RxBufferLen = 255;
+  RxBufferLen = 258;
   temp_count1 = 0;
   temp_count2 = 0;
   state = 0;
@@ -99,6 +99,16 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
                  state = RX_START;
                  RxBufferPos = 0;
                  break;
+            
+            case RX_START:
+                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_END,0); 
+                 small_packet = 1;
+                 P2IFG &= ~BIT0;
+                 break;
+            
+            case RX_RUNNING:
+                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_END,0);
+                 break;
 
             case TX_START:
                  ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_END,0);
@@ -112,13 +122,6 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
                 P2IFG &= ~BIT0;
                 break;
 
-            case RX_START:
-                 P2IFG &= ~BIT0;
-                 break;
-            
-            case RX_RUNNING:
-                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_END,0);
-                 break;
         }
     P2IFG &= ~(BIT0);
     } 

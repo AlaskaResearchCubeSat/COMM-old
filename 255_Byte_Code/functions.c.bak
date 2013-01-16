@@ -264,22 +264,24 @@ while(1)
   //printf("e = %i\r\n ", e);    
   if(e & CC1101_EV_RX_SYNC)
   {
-      //RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC1101) & TI_CCxxx0_NUM_RXBYTES);
-       //printf("RX Sync %i \r\n",RxFIFOLen);
+      //printf("RX Sync %i \r\n",RxFIFOLen);
       //if (RxFIFOLen > 0){
        // Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);
         //RxBufferPos += RxFIFOLen;
         //RxBytesRemaining -= RxFIFOLen;
       //}
+
       PktLen = 0;
       P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
-      P2IES |= (BIT0);                                                            // Change edge interrupt happens on
-      P2IFG &= ~BIT0;                                                                         // Clear flags
+      P2IES |= (BIT0);                                                                   // Change GDO0 interrupt to trigger on falling edge so the end of the packet can be detected 
+      P2IFG &= ~BIT0;                                                                    // Clear flags
       P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
+      
   }
   
   if(e & CC1101_EV_RX_THR)
-  {
+  {         
+           // Check to see if this is the beginning of the packet
            if (PktLen == 0)
            {
            PktLen = Radio_Read_Registers(TI_CCxxx0_RXFIFO, CC1101);       // Read length byte
@@ -292,6 +294,7 @@ while(1)
            }
            if (RxBytesRemaining > 0)
            {
+      
                if (RxBytesRemaining > RxThrBytes)
                {
                    
@@ -304,8 +307,10 @@ while(1)
                    count = RxBytesRemaining;
                    RxBytesRemaining = 0;
                }
-                 if(first){
-                   count--;
+               
+               // If it's the first time through, the count should be one less because of the length byte
+               if(first){
+                   //count--;
                  }
                Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, count, CC1101);
                RxBufferPos += count;
@@ -314,14 +319,37 @@ while(1)
  
    if(e & CC1101_EV_RX_END)
    {
+   
+   // This handles the case where the packet size is less than the RX FIFO threshold (RxBytesThr variable), since the packet size isn't large enough to trigger the
+   // GDO2 interrupt.
+   if (small_packet)
+   {
+     RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC1101) & TI_CCxxx0_NUM_RXBYTES);
+     PktLen = RxFIFOLen-1;
+     Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);
+     P7OUT ^= BIT1;
+     printf("Receiving packet on CC1101\r\n");
+     printf("%d \r\n", PktLen);
+     for (k=0; k < PktLen; k++)
+     {
+        printf("%03d ", RxBuffer[k+1]);
+        if (k % 20 == 19)
+        printf("\r\n");
+     }        
+     printf("\r\n");
+   }
+   
+   // The default case, for packets > RxBytesThr.
+   else
+    {
    RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC1101) & TI_CCxxx0_NUM_RXBYTES);
    if (RxFIFOLen > 0){
-   Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);
+   Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);      
    }
    P7OUT ^= BIT1;
    printf("Receiving packet on CC1101\r\n");
    printf("%d \r\n", PktLen);
-   for (k=0; k < PktLen-1; k++)
+   for (k=0; k < PktLen; k++)
    {
       printf("%03d ", RxBuffer[k]);
       if (k % 20 == 19)
@@ -330,9 +358,10 @@ while(1)
    printf("\r\n");
    state = IDLE;
    P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
-   P2IES &= ~(BIT0);                                                            // Change edge interrupt happens on
-   P2IFG &= ~BIT0;                                                                         // Clear flags
+   P2IES &= ~(BIT0);                                                                  // Change GDO0 edge back to rising to prepare for next sync word
+   P2IFG &= ~BIT0;                                                                    // Clear flags
    P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
+    }
    }
  
  
@@ -621,8 +650,8 @@ Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x07, 1);   // FIFO Threshold
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,  0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_FSCTRL1,  0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ2,    0x10, 1);
-Radio_Write_Registers(TI_CCxxx0_FREQ1,    0xC4, 1);
-Radio_Write_Registers(TI_CCxxx0_FREQ0,    0xEC, 1);
+Radio_Write_Registers(TI_CCxxx0_FREQ1,    0xA7, 1);
+Radio_Write_Registers(TI_CCxxx0_FREQ0,    0x62, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG4,  0xF8, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG3,  0x83, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG2,  0x03, 1); // High byte: 0000 is 2-FSK and 0001 is GFSK; Low byte: 0000 no preamble/sync, 0001 15/16 sync words detected, 0011 30/32 sync words

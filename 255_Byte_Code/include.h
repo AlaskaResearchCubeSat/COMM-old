@@ -22,7 +22,7 @@ extern char RxBuffer[258];
 extern char uhf, temp_count1, temp_count2, button, RxBufferLen, PktLen;
 extern unsigned int data_length, count, state, k, i, TxID, TxNum;
 extern unsigned int TxBufferLen, TxBufferPos, TxBytesRemaining, TxThrBytes;
-extern unsigned int RxBufferPos, RxBytesRemaining, RxFIFOLen, RxThrBytes;
+extern unsigned int RxBufferPos, RxBytesRemaining, RxFIFOLen, RxThrBytes, small_packet;
 extern char paTable_CC1101[];
 extern char paTable_CC2500[];
 extern char paTableLen;
