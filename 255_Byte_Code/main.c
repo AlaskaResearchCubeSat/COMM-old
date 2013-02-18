@@ -1,5 +1,5 @@
 //Code for prototype Communication System for the Alaska Research CubeSat (ARC) as developed by the Alaska Space Grant Program
-//Samuel Vanderwaal, APril 2012
+//Samuel Vanderwaal
 
 #include <include.h>
 #include <ctl_api.h>
