@@ -1,7 +1,7 @@
 //Code for prototype Communication System for the Alaska Research CubeSat (ARC) as developed by the Alaska Space Grant Program
 //Samuel Vanderwaal, APril 2012
 
-//Definitions for CC2400 Registers
+//Definitions for CC2500 Registers
 
 // Configuration Registers
 #define TI_CCxxx0_IOCFG2       0x00        // GDO2 output pin configuration

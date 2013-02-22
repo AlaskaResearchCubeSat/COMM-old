@@ -1,5 +1,5 @@
 //Code for prototype Communication System for the Alaska Research CubeSat (ARC) as developed by the Alaska Space Grant Program
-//Samuel Vanderwaal, APril 2012
+//Samuel Vanderwaal
 
 #include <include.h>
 #include <ctl_api.h>
@@ -46,10 +46,10 @@ void main(void)
   //2.1 -- GDO2  CC1101
   //2.2 -- GDO0  CC2500
   //2.3 -- GDO2  CC2500
-  P2DIR &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                      
-  P2IES &= ~(BIT0 + BIT1 + BIT2 + BIT3);    // Low-to-high transition for interrupts
+  P2DIR &= ~(BIT0 + BIT1);  // + BIT2 + BIT3  These interrupts are giving me problems. Removed temporarily.                                   
+  P2IES &= ~(BIT0 + BIT1);    // Low-to-high transition for interrupts
   P2IFG = 0;                                // Clear flags
-  P2IE |= BIT0 + BIT1 + BIT2 + BIT3;        // Enable ints
+  P2IE |= BIT0 + BIT1;        // Enable ints
   
   //Initialize UART
   init_UCA1_UART();                           
@@ -75,14 +75,15 @@ void main(void)
   data_length = 255;
   // RxBufferLen = sizeof(RxBuffer);          // Length of packet to be received  This does not work for some reason
 
-  TxThrBytes = 30;
+  TxThrBytes = 33;
   RxThrBytes = 32;
-  RxBufferLen = 255;
+  RxBufferLen = 258;
   temp_count1 = 0;
   temp_count2 = 0;
   state = 0;
   P2IFG = 0;     // Clear flags
-
+  
+  printf("Radio State: %x \n\r", Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101));
   printf("Ready\r\n");
                      
   mainLoop();

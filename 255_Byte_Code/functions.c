@@ -260,8 +260,10 @@ void TXRX(void *p) __toplevel
   short first=0;
 while(1)
   {  
-  e = ctl_events_wait(CTL_EVENT_WAIT_ANY_EVENTS_WITH_AUTO_CLEAR,&radio_event_flags,RADIO_EVENTS,CTL_TIMEOUT_NONE,0);
-  //printf("e = %i\r\n ", e);    
+  int Remainder;  
+  //e = ctl_events_wait(CTL_EVENT_WAIT_ANY_EVENTS_WITH_AUTO_CLEAR,&radio_event_flags,RADIO_EVENTS,CTL_TIMEOUT_NONE,0);
+  e = ctl_events_wait(CTL_EVENT_WAIT_ANY_EVENTS_WITH_AUTO_CLEAR,&radio_event_flags,RADIO_EVENTS,CTL_TIMEOUT_DELAY,1024);
+  printf("Radio State: %x \n\r", Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101));
   if(e & CC1101_EV_RX_SYNC)
   {
       //printf("RX Sync %i \r\n",RxFIFOLen);
@@ -276,27 +278,50 @@ while(1)
       P2IES |= (BIT0);                                                                   // Change GDO0 interrupt to trigger on falling edge so the end of the packet can be detected 
       P2IFG &= ~BIT0;                                                                    // Clear flags
       P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
-      
   }
   
   if(e & CC1101_EV_RX_THR)
   {         
+          //int temp;
            // Check to see if this is the beginning of the packet
            if (PktLen == 0)
            {
-           PktLen = Radio_Read_Registers(TI_CCxxx0_RXFIFO, CC1101);       // Read length byte
-           RxBytesRemaining = PktLen;                                    // Set number of bytes left to receive
-           first=1;
+           //Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, &temp, 2, CC1101);
+           // Read length bytes, Big Endian
+           PktLenUpper = Radio_Read_Registers(TI_CCxxx0_RXFIFO, CC1101);       // Read upper length byte
+           PktLenLower = Radio_Read_Registers(TI_CCxxx0_RXFIFO, CC1101);       // Read lower length byte
+           
+           PktLen = (PktLenUpper << 8) + PktLenLower;                        // Get total packet length
+           RxBytesRemaining = PktLen - 2;                                  // Set number of bytes left to receive, packet length minus to packet length bytes just read
+           first = 1;
+        
+              if (PktLen > 256)
+              {
+              Remainder = PktLen % 256;
+              Radio_Write_Registers(TI_CCxxx0_PKTLEN, Remainder, CC1101);              // Pre-program PKTLEN register
+              Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x02, CC1101);                 // Switch to infinite byte mode
+              }
+              
+              else
+              {
+                Radio_Write_Registers(TI_CCxxx0_PKTLEN, PktLen, CC1101);
+              }
+          
            }
            else
            {
             first=0;
            }
+      
            if (RxBytesRemaining > 0)
            {
       
                if (RxBytesRemaining > RxThrBytes)
                {
+                   if (RxBytesRemaining < 256)   // Ensure less than 256 left to receive
+                   {
+                      Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x00, CC1101);        // Switch back to fixed length mode
+                   }
                    
                    count = RxThrBytes;
                    RxBytesRemaining = RxBytesRemaining - RxThrBytes;
@@ -308,10 +333,11 @@ while(1)
                    RxBytesRemaining = 0;
                }
                
-               // If it's the first time through, the count should be one less because of the length byte
+               // If it's the first time through, the count should be two less because of the length byte
                if(first){
-                   //count--;
+                   count = count - 2;
                  }
+               
                Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, count, CC1101);
                RxBufferPos += count;
            }
@@ -325,14 +351,14 @@ while(1)
    if (small_packet)
    {
      RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC1101) & TI_CCxxx0_NUM_RXBYTES);
-     PktLen = RxFIFOLen-1;
+     PktLen = RxFIFOLen - 2;
      Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);
      P7OUT ^= BIT1;
      printf("Receiving packet on CC1101\r\n");
      printf("%d \r\n", PktLen);
      for (k=0; k < PktLen; k++)
      {
-        printf("%03d ", RxBuffer[k+1]);
+        printf("%03d ", RxBuffer[k + 2]);
         if (k % 20 == 19)
         printf("\r\n");
      }        
@@ -374,7 +400,20 @@ while(1)
           P2IES |= (BIT0 + BIT1 + BIT2 + BIT3);                                              // Change edge interrupt happens on
           P2IFG = 0;                                                                         // Clear flags
           P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
-          //Build_Packet(data_length);
+   
+          if (INFINITE)
+          {
+            Remainder = TxBytesRemaining % 256;                                               // Calculate the remainder which tells the internal byte counter when to stop sending packets
+            Radio_Write_Registers(TI_CCxxx0_PKTLEN, Remainder, CC1101);                       // Pre-program the packet length
+            Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x02, CC1101);                          // Switch to infinite byte mode
+            INFINITE = FALSE;                                                                 // Reset flag indicating whether or not infinite byte mode is required 
+          }
+   
+          else
+          {
+             Radio_Write_Registers(TI_CCxxx0_PKTLEN, TxBytesRemaining, CC1101);
+          }
+   
           if (TxBytesRemaining > 64)
           {
               count = 64;
@@ -397,6 +436,10 @@ while(1)
           {
              if (TxBytesRemaining > TxThrBytes)
              {
+                 if (TxBytesRemaining < 220)
+                 {
+                    Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x00, CC1101);
+                 }
                  count = TxThrBytes;
                  TxBytesRemaining = TxBytesRemaining - TxThrBytes;
              }
@@ -451,6 +494,7 @@ while(1)
       Radio_Strobe(TI_CCxxx0_SFTX,CC1101);
       Radio_Strobe(TI_CCxxx0_SRX,CC1101);
       __delay_cycles(16000);
+      printf("Underflow Error, TX FIFO flushed, radio state now: ");
       printf("%x \r\n",Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101)); 
    }
   
@@ -595,23 +639,33 @@ void sub_events(void *p) __toplevel{
     }
     if(e&SUB_EV_SPI_DAT){
       puts("SPI data recived:\r");
-      //get length
-      len=arcBus_stat.spi_stat.len;
+      //get length add two for length bytes
+      len=arcBus_stat.spi_stat.len + 2;
       //print out data
-      for(i=0;i<len;i++){
+      for(i=0; i < (len - 2); i++){
         //printf("0x%02X ",rx[i]);
         printf("%03i ",arcBus_stat.spi_stat.rx[i]);
       }
       printf("\r\n");
      
-    TxBuffer[0] = len; 
-     for (i=0; i < len; i++)
+     TxBuffer[0] = len >> 8;
+     TxBuffer[1] = len;
+     
+     for (i=0; i < (len - 2); i++)
       {
-        TxBuffer[i+1] = arcBus_stat.spi_stat.rx[i];
+        TxBuffer[i+2] = arcBus_stat.spi_stat.rx[i];
       }
-      TxBytesRemaining = len+1;
-      ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_START,0);
-     }
+     
+      TxBytesRemaining = len;
+     
+      if (TxBytesRemaining > 255)
+      {
+        INFINITE = TRUE;
+      }
+     
+     ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_START,0);
+    
+   }
     if(e&SUB_EV_SPI_ERR_CRC){
       puts("SPI bad CRC\r");
     }
@@ -661,8 +715,8 @@ Radio_Write_Registers(TI_CCxxx0_CHANNR,   0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_DEVIATN,  0x15, 1);
 Radio_Write_Registers(TI_CCxxx0_FREND1,   0x56, 1);
 Radio_Write_Registers(TI_CCxxx0_FREND0,   0x10, 1);
-Radio_Write_Registers(TI_CCxxx0_MCSM0,    0x18, 1);
 Radio_Write_Registers(TI_CCxxx0_MCSM1,    0x0F, 1);
+Radio_Write_Registers(TI_CCxxx0_MCSM0,    0x18, 1);
 Radio_Write_Registers(TI_CCxxx0_FOCCFG,   0x16, 1);
 Radio_Write_Registers(TI_CCxxx0_BSCFG,    0x6C, 1);
 Radio_Write_Registers(TI_CCxxx0_AGCCTRL2, 0x03, 1);
@@ -677,16 +731,17 @@ Radio_Write_Registers(TI_CCxxx0_TEST2,    0x81, 1);
 Radio_Write_Registers(TI_CCxxx0_TEST1,    0x35, 1);
 Radio_Write_Registers(TI_CCxxx0_TEST0,    0x09, 1);
 Radio_Write_Registers(TI_CCxxx0_PKTCTRL1, 0x00, 1);     
-Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x01, 1);     // Variable packet length mode; packet length set by first byte after sync word
+Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x00, 1);      // Fixed packet length mode set
+Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0xFF, 1);      // Packet length set for fixed packet length mode
 Radio_Write_Registers(TI_CCxxx0_ADDR,     0x00, 1);
-Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0xFF, 1);      // Packet length set for variable packet length mode
+
 
 
 // Write CC2500 register settings
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 0);  // GDO0 output pin config.
 Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x00, 0);  // GDO2 output pin config.
 Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x0F, 0);  // FIFO Threshold: 1 byte in TX FIFO and 63 in RX FIFO
-Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0x08, 0);  // Packet length.
+Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0xFF, 0);  // Packet length.
 Radio_Write_Registers(TI_CCxxx0_PKTCTRL1, 0x04, 0);  // Packet automation control.
 Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x05, 0);  // Packet automation control.
 Radio_Write_Registers(TI_CCxxx0_ADDR,     0x01, 0);  // Device address.
