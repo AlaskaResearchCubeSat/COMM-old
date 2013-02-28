@@ -263,7 +263,7 @@ while(1)
   int Remainder;  
   //e = ctl_events_wait(CTL_EVENT_WAIT_ANY_EVENTS_WITH_AUTO_CLEAR,&radio_event_flags,RADIO_EVENTS,CTL_TIMEOUT_NONE,0);
   e = ctl_events_wait(CTL_EVENT_WAIT_ANY_EVENTS_WITH_AUTO_CLEAR,&radio_event_flags,RADIO_EVENTS,CTL_TIMEOUT_DELAY,1024);
-  printf("Radio State: %x \n\r", Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101));
+  //printf("Radio State: %x \n\r", Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101));
   if(e & CC1101_EV_RX_SYNC)
   {
       //printf("RX Sync %i \r\n",RxFIFOLen);
