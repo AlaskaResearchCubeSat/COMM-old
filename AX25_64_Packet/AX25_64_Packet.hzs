@@ -1,7 +1,9 @@
 <!DOCTYPE CrossStudio_for_MSP430_Session_File>
 <session>
  <Bookmarks/>
- <Breakpoints/>
+ <Breakpoints>
+  <BreakpointListItem line="89" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="z:\software\comm\comm system 2618\ax25_64_packet\main.c" expression="" />
+ </Breakpoints>
  <EEMRegistersWindow>
   <EEMRegisters moduleClockControl="60d7" generalClockControl="2e" />
  </EEMRegistersWindow>
@@ -47,7 +49,9 @@
   <Trace enabled="Yes" />
  </TraceWindow>
  <Watch1>
-  <Watches active="1" update="Never" />
+  <Watches active="1" update="Never" >
+   <Watchpoint evalMode="2" linenumber="72" numelements="250" evalType="0" radix="-1" name="TX_Data" expression="TX_Data" filename="z:/software/git/asgp/comm/ax25_64_packet/ax25_send.c" />
+  </Watches>
  </Watch1>
  <Watch2>
   <Watches active="0" update="Never" />
@@ -58,8 +62,6 @@
  <Watch4>
   <Watches active="0" update="Never" />
  </Watch4>
- <Files>
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\AX25_64_Packet\main.c" y="98" path="Z:\Software\Git\ASGP\COMM\AX25_64_Packet\main.c" left="0" selected="1" name="unnamed" top="69" />
- </Files>
- <MSP430CrossStudioWindow activeProject="AX25_64_Packet" autoConnectTarget="Board 1" debugSearchFileMap="" fileDialogInitialDirectory="Z:\Software\Git\ASGP\COMM\AX25_64_Packet" fileDialogDefaultFilter="" autoConnectCapabilities="3455" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+ <Files/>
+ <MSP430CrossStudioWindow activeProject="AX25_64_Packet" autoConnectTarget="TI MSP-FET430UIF (JTAG)" debugSearchFileMap="" fileDialogInitialDirectory="Z:\Software\Git\ASGP\COMM\Main Code Branch" fileDialogDefaultFilter="" autoConnectCapabilities="3455" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>

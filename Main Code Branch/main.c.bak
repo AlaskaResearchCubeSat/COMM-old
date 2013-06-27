@@ -17,46 +17,40 @@ void main(void)
 
   // Sets up Timer A, clocks and pauses the watchdog timer
   ARC_setup();
+
+  // Sets up peripherals for the ARCbus and initializes the tasking library. COMM I2C address as the argument
+  initARCbus(BUS_ADDR_COMM);
   
   // Sets up the radio's SPI 
   SPI_Setup();    
 
   // Set up the GDO interrupts for the radios and also the output pins for PA switches, use with engineering board
-  //radio_interrupts();
+  radio_interrupts();
 
-  Reset_Radios();                                                                   // Power up both radios
-  Write_RF_Settings();                                                              // Write RF settings to config reg
-  Radio_Write_Burst_Registers(TI_CCxxx0_PATABLE, paTable_CC1101, paTableLen, 1);    // Write PATABLE for CC1101
-  Radio_Write_Burst_Registers(TI_CCxxx0_PATABLE, paTable_CC2500, paTableLen, 0);    // Write PATABLE for CC2500
+  Reset_Radio(CC1101);                                                                   // Power up both radios
+  __delay_cycles(8000);
 
+    Radio_Strobe(TI_CCxxx0_SIDLE, CC1101);           // Initialize CC1101 in RX mode
+  //Radio_Strobe(TI_CCxxx0_SRX, CC2500);           // Initialize CC2500 in Rx mode
+
+  Write_RF_Settings(CC1101);                                                         // Write RF settings to configure registers
+  Radio_Write_Burst_Registers(TI_CCxxx0_PATABLE, paTable_CC1101, paTableLen, CC1101);    // Write PATABLE for CC1101
+  //Radio_Write_Burst_Registers(TI_CCxxx0_PATABLE, paTable_CC2500, paTableLen, CC2500);    // Write PATABLE for CC2500
+
+  P5SEL |= BIT6;
+  P5DIR |= BIT6;
+  
   //Set up LEDs 1-8 for testing
   P7DIR |= BIT0;             
   P7DIR |= BIT1;
   P7DIR |= BIT2;
   P7DIR |= BIT3;
-  P7DIR |= BIT4;
-  P7DIR |= BIT5;
-  P7DIR |= BIT6;
-  P7DIR |= BIT7;            
 
   P7OUT = 0;
-  
-  //Enable interrupts on Port 2.0 - 2.3:
-  //2.0 -- GDO0  CC1101
-  //2.1 -- GDO2  CC1101
-  //2.2 -- GDO0  CC2500
-  //2.3 -- GDO2  CC2500
-  P2DIR &= ~(BIT0 + BIT1);  // + BIT2 + BIT3  These interrupts are giving me problems. Removed temporarily.                                   
-  P2IES &= ~(BIT0 + BIT1);    // Low-to-high transition for interrupts
-  P2IFG = 0;                                // Clear flags
-  P2IE |= BIT0 + BIT1;        // Enable ints
-  
+ 
   //Initialize UART
   init_UCA1_UART();                           
-   
-  Radio_Strobe(TI_CCxxx0_SRX, CC1101);           // Initialize CC1101 in RX mode
-  Radio_Strobe(TI_CCxxx0_SRX, CC2500);           // Initialize CC2500 in Rx mode
-   
+     
   // Initalizes bus interface
   initARCbus(BUS_ADDR_COMM);
 
@@ -75,15 +69,16 @@ void main(void)
   data_length = 255;
   // RxBufferLen = sizeof(RxBuffer);          // Length of packet to be received  This does not work for some reason
 
-  TxThrBytes = 33;
+  TxThrBytes = 30;
   RxThrBytes = 32;
   RxBufferLen = 258;
   temp_count1 = 0;
   temp_count2 = 0;
   state = 0;
   P2IFG = 0;     // Clear flags
-  
-  printf("Radio State: %x \n\r", Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101));
+  end = 0;
+ 
+  //printf("Radio State: %x \n\r", Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101));
   printf("Ready\r\n");
                      
   mainLoop();
@@ -91,7 +86,7 @@ void main(void)
 
 void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
 {
-   if (P2IFG & BIT0)
+   if (P2IFG & CC1101_GDO0)
     {
         switch(state)
         {
@@ -104,7 +99,7 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
             case RX_START:
                  ctl_events_set_clear(&radio_event_flags,CC1101_EV_RX_END,0); 
                  small_packet = 1;
-                 P2IFG &= ~BIT0;
+                 P2IFG &= ~CC1101_GDO0;
                  break;
             
             case RX_RUNNING:
@@ -114,20 +109,20 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
             case TX_START:
                  ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_END,0);
                  state = IDLE;
-                 P2IFG &= ~BIT0;
+                 P2IFG &= ~CC1101_GDO0;
                  break;
             
             case TX_RUNNING:
                 ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_END,0);
                 state = IDLE;
-                P2IFG &= ~BIT0;
+                P2IFG &= ~CC1101_GDO0;
                 break;
 
         }
-    P2IFG &= ~(BIT0);
+    P2IFG &= ~(CC1101_GDO0);
     } 
 
-    if (P2IFG & BIT1) 
+    if (P2IFG & CC1101_GDO2) 
     {
         switch(state)
     
@@ -157,10 +152,10 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
         }
                  
         uhf = 1;
-        P2IFG &= ~BIT1;
+        P2IFG &= ~CC1101_GDO2;
     }
   
-   if (P2IFG & BIT2)
+   if (P2IFG & CC2500_GDO0)
     {
         switch(state){
             case IDLE:
@@ -170,17 +165,17 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
                  break;
 
             case TX_START:
-                 P2IFG &= ~BIT0;
+                 P2IFG &= ~CC2500_GDO0;
                  break;
 
             case RX_START:
                  break;
 
                      }
-    P2IFG &= ~BIT2;
+    P2IFG &= ~CC2500_GDO0;
     } 
 
-    if (P2IFG & BIT3) 
+    if (P2IFG & CC2500_GDO2) 
     {
         switch(state)
         {
@@ -199,7 +194,7 @@ void Port2_ISR (void) __ctl_interrupt[PORT2_VECTOR]
         }
 
       uhf = 0;
-      P2IFG &= ~BIT3;
+      P2IFG &= ~CC2500_GDO2;
     }
 //P2IFG = 0;
 }

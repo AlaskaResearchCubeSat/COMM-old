@@ -9,7 +9,7 @@ void Build_Packet(int data_length)
 {
 int i;
 buffer_position = 0;
-TxBuffer[0] = data_length;                  // First byte is length of packet
+TxBuffer[0] = packet_length;                  // First byte is length of packet
 for (i = 1; i <= data_length; i++)      // Fill up buffer with data
     TxBuffer[i] = i;
 }
@@ -18,6 +18,22 @@ void TI_CC_Wait(unsigned int cycles)
 {
   while(cycles>15)                          // 15 cycles consumed by overhead
     cycles = cycles - 6;                    // 6 cycles consumed each iteration
+}
+
+void SD_Card_Setup(void)
+{
+  UCA1CTL1 = UCSWRST;
+  UCA1CTL0 = UCCKPH + UCMSB + UCMST + UCMODE_0 + UCSYNC;
+  UCA1CTL1 |= UCSSEL_2;
+  UCA1BR0 = 16;      //Set frequency divider so SPI runs at 16/16 = 1 MHz
+  UCA1BR1 = 0;
+
+  UC1IE |= UCB1TXIE + UCB1RXIE;
+  
+  P3SEL |= BIT6 + BIT7;                     // Select UCA1TXD for 3.6 and UCA1RXD for 3.7
+  P3DIR |= BIT6;                            // Select output for 3.6 (UC1ATXD)
+  
+  UCA1CTL1 &= ~UCSWRST;                     //Enable UART state machine
 }
 
 //Set up the UCB1 SPI channel for writing to the radios
@@ -35,14 +51,20 @@ void SPI_Setup(void)
   P5DIR |= MOSI + CLK;                      //Set outputs: MOSI and CLK
   P5DIR |= CS_1101;                          //Set output for CC1101 CS
   P5DIR |= CS_2500;                          //Set output for CC2500 CS
+  P5DIR |= CS_TEMP1;
+  P5DIR |= CS_TEMP2;
 
-  P5OUT |= CS_1101;                     //Ensure CS for CC1101 is disabled
-  P5OUT |= CS_2500;                     //Ensure CS for CC2500 is disabled 
-  UCB1CTL1 &= ~UCSWRST;                 //Enable UART state machine
+  P5OUT |= CS_1101;                     // Ensure CS for CC1101 is disabled
+  P5OUT |= CS_2500;                     // Ensure CS for CC2500 is disabled
+  P5OUT |= CS_TEMP1;                    // Ensure CS for temperature sensor 1 is disabled
+  P5OUT |= CS_TEMP2;                    // Ensure CS for temperature sensor 2 is disabled
+  UCB1CTL1 &= ~UCSWRST;                 // Enable UART state machine
 }
 
-void Reset_Radios(void)
+void Reset_Radio(char radio)
 {
+  if (radio)
+  {
   P5OUT |= CS_1101;                   //Toggle CS with delays to power up radio
   TI_CC_Wait(30);
   P5OUT &= ~CS_1101;
@@ -56,6 +78,10 @@ void Reset_Radios(void)
                                             // Strobe addr is now being TX'ed
   while (UCB1STAT & UCBUSY);                // Wait for TX to complete
   P5OUT |= CS_1101;                           // CS disable
+  }
+
+  else
+  {
   
   P5OUT |= CS_2500;                   //Toggle CS with delays to power up radio
   TI_CC_Wait(30);
@@ -70,6 +96,7 @@ void Reset_Radios(void)
                                             // Strobe addr is now being TX'ed
   while (UCB1STAT & UCBUSY);                // Wait for TX to complete
   P5OUT |= CS_2500;                           // CS disable
+  }
 
   P2IFG = 0;                                // Clear flags that were set
 }
@@ -264,47 +291,24 @@ Tx_Flag = 1;
 
 void Write_RF_Settings(void)
 {
-// CC1101
-// Deviation = 5.157471 
-// Base frequency = 432.999817 
-// Carrier frequency = 432.999817 
-// Channel number = 0 
-// Carrier frequency = 432.999817 
-// Modulated = true 
-// Modulation format = GFSK 
-// Manchester enable = false 
-// Sync word qualifier mode = 30/32 sync word bits detected 
-// Preamble count = 4 
-// Channel spacing = 199.951172 kHz
-// Carrier frequency = 432.999817 MHz
-// Data rate = 9.59587 kbps
-// RX filter BW = 58.035714 
-// Data format = Normal mode 
-// Length config = Variable packet length mode. Packet length configured by the first byte after sync word 
-// CRC enable = true 
-// Packet length = 255 
-// Device address = 0 
-// Address config = No address check 
-// CRC autoflush = false 
-// PA ramping = false 
-// TX power = 0
-Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 1);
-Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x00, 1);
+Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 1);  // GDO0 output pin config.
+Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x29, 1);  // GDO2 output pin config.
 Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x0F, 1);   // FIFO Threshold: 33 bytes in TX FIFO and 32 in RX FIFO
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,  0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_FSCTRL1,  0x06, 1);
-Radio_Write_Registers(TI_CCxxx0_FREQ2,    0x10, 1);
+Radio_Write_Registers(TI_CCxxx0_FREQ2,    0x10, 1);  // 10, A7, 62 = 433 MHz;  10, C4, EC = 436 MHz; 10, BB, 13 = 435 MHz 
 Radio_Write_Registers(TI_CCxxx0_FREQ1,    0xA7, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ0,    0x62, 1);
-Radio_Write_Registers(TI_CCxxx0_MDMCFG4,  0xF8, 1);
+Radio_Write_Registers(TI_CCxxx0_MDMCFG4,  0xF8, 1);  // F5 = 1200 baud, F8 = 9600 baud
 Radio_Write_Registers(TI_CCxxx0_MDMCFG3,  0x83, 1);
-Radio_Write_Registers(TI_CCxxx0_MDMCFG2,  0x13, 1);
-Radio_Write_Registers(TI_CCxxx0_MDMCFG1,  0x22, 1);
+Radio_Write_Registers(TI_CCxxx0_MDMCFG2,  0x03, 1); // High byte: 0000 is 2-FSK and 0001 is GFSK; Low byte: 0000 no preamble/sync, 0001 15/16 sync words detected, 0011 30/32 sync words
+Radio_Write_Registers(TI_CCxxx0_MDMCFG1,  0x22, 1); // High byte: 0010 is 4 bytes of preamble, 0100 is 8 bytes of preamble
 Radio_Write_Registers(TI_CCxxx0_MDMCFG0,  0xF8, 1);
 Radio_Write_Registers(TI_CCxxx0_CHANNR,   0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_DEVIATN,  0x15, 1);
 Radio_Write_Registers(TI_CCxxx0_FREND1,   0x56, 1);
 Radio_Write_Registers(TI_CCxxx0_FREND0,   0x10, 1);
+Radio_Write_Registers(TI_CCxxx0_MCSM1,    0x0E, 1);
 Radio_Write_Registers(TI_CCxxx0_MCSM0,    0x18, 1);
 Radio_Write_Registers(TI_CCxxx0_FOCCFG,   0x16, 1);
 Radio_Write_Registers(TI_CCxxx0_BSCFG,    0x6C, 1);
@@ -319,19 +323,19 @@ Radio_Write_Registers(TI_CCxxx0_FSTEST,   0x59, 1);
 Radio_Write_Registers(TI_CCxxx0_TEST2,    0x81, 1);
 Radio_Write_Registers(TI_CCxxx0_TEST1,    0x35, 1);
 Radio_Write_Registers(TI_CCxxx0_TEST0,    0x09, 1);
-Radio_Write_Registers(TI_CCxxx0_PKTCTRL1, 0x04, 1);     //Status bytes appended (RSSI and LQI values, CRC ok) but no address check
-Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x05, 1);     // Variable packet length mode; packet length set by first byte after sync word
+Radio_Write_Registers(TI_CCxxx0_PKTCTRL1, 0x00, 1);     //Status bytes appended (RSSI and LQI values, CRC ok) but no address check
+Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x01, 1);     // Variable packet length mode; packet length set by first byte after sync word; High byte: 0x02 = Random Tx Mode
 Radio_Write_Registers(TI_CCxxx0_ADDR,     0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0xFF, 1);      // Packet length set for variable packet length mode (PKTCTL0 = 0x05) so this doesn't matter
 
-
+/*
 // Write CC2500 register settings
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 0);  // GDO0 output pin config.
 Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x00, 0);  // GDO2 output pin config.
 Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0xFF, 0);  // Packet length.
 Radio_Write_Registers(TI_CCxxx0_PKTCTRL1, 0x04, 0);  // Packet automation control.
 Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x05, 0);  // Packet automation control.
-Radio_Write_Registers(TI_CCxxx0_ADDR,     0x01, 0);  // Device address.
+Radio_Write_Registers(TI_CCxxx0_ADDR,     0x01, 0);  // Device address. 
 Radio_Write_Registers(TI_CCxxx0_CHANNR,   0x00, 0); // Channel number.
 Radio_Write_Registers(TI_CCxxx0_FSCTRL1,  0x07, 0); // Freq synthesizer control.
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,  0x00, 0); // Freq synthesizer control.
@@ -362,4 +366,5 @@ Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x07, 0); // FIFO Threshold: 33 bytes 
 Radio_Write_Registers(TI_CCxxx0_TEST2,    0x88, 0); // Various test settings.
 Radio_Write_Registers(TI_CCxxx0_TEST1,    0x31, 0); // Various test settings.
 Radio_Write_Registers(TI_CCxxx0_TEST0,    0x0B, 0); // Various test settings.    
+*/
 }

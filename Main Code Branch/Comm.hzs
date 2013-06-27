@@ -2,10 +2,8 @@
 <session>
  <Bookmarks/>
  <Breakpoints>
-  <BreakpointListItem line="296" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\Git\ASGP\COMM\255_Byte_Code\functions.c" expression="" />
-  <BreakpointListItem line="428" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\Git\ASGP\COMM\255_Byte_Code\functions.c" expression="" />
-  <BreakpointListItem line="430" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\Git\ASGP\COMM\255_Byte_Code\functions.c" expression="" />
-  <BreakpointListItem line="92" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\Git\ASGP\COMM\255_Byte_Code\main.c" expression="" />
+  <BreakpointListItem line="85" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\Git\ASGP\COMM\Main Code Branch\main.c" expression="" />
+  <BreakpointListItem line="88" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\Git\ASGP\COMM\Main Code Branch\main.c" expression="" />
  </Breakpoints>
  <EEMRegistersWindow>
   <EEMRegisters moduleClockControl="60d7" generalClockControl="2e" />
@@ -31,12 +29,12 @@
   <MemoryWindow autoEvaluate="0" addressText="" numColumns="8" sizeText="" dataSize="1" radix="16" addressSpace="" />
  </Memory4>
  <Project>
-  <ProjectSessionItem path="Infinite_Bytes" name="unnamed" />
-  <ProjectSessionItem path="Infinite_Bytes;Infinite_Bytes" name="unnamed" />
-  <ProjectSessionItem path="Infinite_Bytes;Infinite_Bytes;Source Files" name="unnamed" />
+  <ProjectSessionItem path="Communications System" name="unnamed" />
+  <ProjectSessionItem path="Communications System;Communications System" name="unnamed" />
+  <ProjectSessionItem path="Communications System;Communications System;Source Files" name="unnamed" />
  </Project>
  <Register1>
-  <RegisterWindow openNodes="Port P2;Port P7" binaryNodes="Port P2/P2IFG;Port P2/P2IES;Port P2/P2IE" hiddenNodes="" unsignedNodes="" visibleGroups="Port P2;UCSI_B1 SPI Mode;Port P7" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="Port P2" binaryNodes="Port P2/P2IN;Port P2/P2OUT;Port P2/P2DIR;Port P2/P2IFG;Port P2/P2IES;Port P2/P2IE;Port P5/P5OUT;Port P5/P5SEL;Port P5/P5REN" hiddenNodes="" unsignedNodes="" visibleGroups="Port P2;UCSI_B1 SPI Mode;Port P7;Port P5" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register1>
  <Register2>
   <RegisterWindow openNodes="" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
@@ -53,18 +51,13 @@
  </TraceWindow>
  <Watch1>
   <Watches active="1" update="Never" >
-   <Watchpoint linenumber="409" radix="-1" name="INFINITE" expression="INFINITE" filename="z:/software/git/asgp/comm/255_byte_code/functions.c" />
-   <Watchpoint linenumber="291" radix="-1" name="PktLenUpper" expression="PktLenUpper" filename="z:/software/git/asgp/comm/255_byte_code/functions.c" />
-   <Watchpoint linenumber="406" radix="10" name="Remainder" expression="Remainder" filename="z:/software/git/asgp/comm/255_byte_code/functions.c" />
-   <Watchpoint linenumber="292" radix="-1" name="PktLenLower" expression="PktLenLower" filename="z:/software/git/asgp/comm/255_byte_code/functions.c" />
-   <Watchpoint linenumber="83" radix="10" name="state" expression="state" filename="z:/software/local/comm/255_byte_code/main.c" />
    <Watchpoint linenumber="287" radix="16" name="PktLen" expression="PktLen" filename="z:/software/git/asgp/comm/255_byte_code/functions.c" />
+   <Watchpoint evalMode="2" linenumber="645" numelements="505" evalType="0" radix="-1" name="TxBuffer" expression="TxBuffer" filename="z:/software/git/asgp/comm/main code branch/functions.c" />
    <Watchpoint linenumber="359" radix="10" name="count" expression="count" filename="z:/software/local/comm/255_byte_code/functions.c" />
    <Watchpoint linenumber="357" radix="10" name="TxBytesRemaining" expression="TxBytesRemaining" filename="z:/software/local/comm/255_byte_code/functions.c" />
-   <Watchpoint evalMode="2" linenumber="341" numelements="300" evalType="0" radix="-1" name="RxBuffer" expression="RxBuffer" filename="z:/software/git/asgp/comm/255_byte_code/functions.c" />
    <Watchpoint linenumber="370" radix="10" name="TxBufferPos" expression="TxBufferPos" filename="z:/software/local/comm/255_byte_code/functions.c" />
-   <Watchpoint evalMode="2" linenumber="428" numelements="400" evalType="0" radix="10" name="TxBuffer" expression="TxBuffer" filename="z:/software/git/asgp/comm/255_byte_code/functions.c" />
-   <Watchpoint linenumber="289" radix="-1" name="temp" expression="temp" filename="z:/software/git/asgp/comm/255_byte_code/functions.c" />
+   <Watchpoint linenumber="83" radix="10" name="state" expression="state" filename="z:/software/local/comm/255_byte_code/main.c" />
+   <Watchpoint linenumber="448" radix="-1" name="end" expression="end" filename="z:/software/git/asgp/comm/main code branch/functions.c" />
   </Watches>
  </Watch1>
  <Watch2>
@@ -77,15 +70,14 @@
   <Watches active="0" update="Never" />
  </Watch4>
  <Files>
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\255_Byte_Code\main.c" y="39" path="Z:\Software\Git\ASGP\COMM\255_Byte_Code\main.c" left="0" selected="0" name="unnamed" top="7" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="26" debugPath="Z:\Software\Git\ASGP\COMM\255_Byte_Code\functions.c" y="282" path="Z:\Software\Git\ASGP\COMM\255_Byte_Code\functions.c" left="0" selected="1" name="unnamed" top="264" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\255_Byte_Code\functions.h" y="0" path="Z:\Software\Git\ASGP\COMM\255_Byte_Code\functions.h" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\255_Byte_Code\include.c" y="9" path="Z:\Software\Git\ASGP\COMM\255_Byte_Code\include.c" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\255_Byte_Code\include.h" y="25" path="Z:\Software\Git\ASGP\COMM\255_Byte_Code\include.h" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="z:\software\bus\library\mainloop.c" y="295" path="Z:\software\bus\library\mainLoop.c" left="0" selected="0" name="unnamed" top="266" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="z:\software\local\comm\255_byte_code\ucint.c" y="1" path="Z:\software\local\comm\255_byte_code\UCint.c" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Program Files (x86)\Rowley Associates Limited\CrossWorks for MSP430 2.1\ctl\include\ctl_api.h" y="13" path="C:\Program Files (x86)\Rowley Associates Limited\CrossWorks for MSP430 2.1\ctl\include\ctl_api.h" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Program Files (x86)\Rowley Associates Limited\CrossWorks for MSP430 2.1\ctl\include\ctl.h" y="214" path="C:\Program Files (x86)\Rowley Associates Limited\CrossWorks for MSP430 2.1\ctl\include\ctl.h" left="0" selected="0" name="unnamed" top="200" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Libraries\ARClib\error.c" y="0" path="Z:\Software\Libraries\ARClib\error.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="29" debugPath="Z:\Software\Git\ASGP\COMM\Main Code Branch\main.c" y="125" path="Z:\Software\Git\ASGP\COMM\Main Code Branch\main.c" left="0" selected="0" name="unnamed" top="78" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Main Code Branch\functions.c" y="712" path="Z:\Software\Git\ASGP\COMM\Main Code Branch\functions.c" left="0" selected="1" name="unnamed" top="6" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Main Code Branch\functions.h" y="39" path="Z:\Software\Git\ASGP\COMM\Main Code Branch\functions.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Main Code Branch\include.c" y="10" path="Z:\Software\Git\ASGP\COMM\Main Code Branch\include.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Main Code Branch\include.h" y="26" path="Z:\Software\Git\ASGP\COMM\Main Code Branch\include.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="2" debugPath="z:\software\libraries\arclib\mainloop.c" y="354" path="Z:\software\libraries\arclib\mainLoop.c" left="0" selected="0" name="unnamed" top="326" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Main Code Branch\Radio_Registers.h" y="8" path="Z:\Software\Git\ASGP\COMM\Main Code Branch\Radio_Registers.h" left="0" selected="0" name="unnamed" top="0" />
  </Files>
- <MSP430CrossStudioWindow activeProject="Infinite_Bytes" autoConnectTarget="Board 1" debugSearchFileMap="" fileDialogInitialDirectory="Z:\Software\Git\ASGP\COMM\AX25_64_Packet" fileDialogDefaultFilter="*.c" autoConnectCapabilities="3455" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+ <MSP430CrossStudioWindow activeProject="Communications System" autoConnectTarget="TI MSP-FET430UIF (JTAG)" debugSearchFileMap="" fileDialogInitialDirectory="Z:\Software\Git\ASGP\COMM\Eng. Board Code" fileDialogDefaultFilter="" autoConnectCapabilities="3455" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>

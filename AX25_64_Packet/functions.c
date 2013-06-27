@@ -265,15 +265,15 @@ Radio_Write_Registers(TI_CCxxx0_FSCTRL1,   0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_PKTCTRL1,   0x04, 1);     // Status bytes appended (RSSI and LQI values, CRC ok) but no address check
-Radio_Write_Registers(TI_CCxxx0_PKTCTRL0,   0x04, 1);     // Fixed packet length mode
+Radio_Write_Registers(TI_CCxxx0_PKTCTRL0,   0x44, 1);     // Fixed packet length mode
 Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0x3D, 1);       // Packet length set for fix packet length mode (PKTCTL0 = 0x04)
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,   0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ2,   0x10, 1);
-Radio_Write_Registers(TI_CCxxx0_FREQ1,   0xA7, 1);
+Radio_Write_Registers(TI_CCxxx0_FREQ1,   0xA7, 1);  // 10, A7, 62 = 433 MHz;  10, C4, EC = 436 MHz; 10, BB, 13 = 435 MHz 
 Radio_Write_Registers(TI_CCxxx0_FREQ0,   0x62, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG4,   0xF8, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG3,   0x83, 1);
-Radio_Write_Registers(TI_CCxxx0_MDMCFG2,   0x13, 1);
+Radio_Write_Registers(TI_CCxxx0_MDMCFG2,   0x03, 1);  // High byte: 0000 is 2-FSK and 0001 is GFSK; Low byte: 0000 no preamble/sync, 0001 15/16 sync words detected, 0011 30/32 sync words
 Radio_Write_Registers(TI_CCxxx0_MDMCFG1,   0x22, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG0,   0xF8, 1);
 Radio_Write_Registers(TI_CCxxx0_CHANNR,   0x00, 1);

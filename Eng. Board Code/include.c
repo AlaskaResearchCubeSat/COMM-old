@@ -6,6 +6,7 @@
 
 char TxBuffer[258];
 char RxBuffer[258];
+char message, radio;
 int data_length, bytes_remaining, buffer_position, packet_length, Tx_Flag;
 int j;
 char paTable_CC1101[] = {0xC5};

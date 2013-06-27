@@ -4,8 +4,10 @@
 #define MOSI     BIT1
 #define MISO     BIT2
 #define CLK      BIT3
-#define CS_1101  BIT4
-#define CS_2500  BIT5
+#define CS_2500  BIT4
+#define CS_1101  BIT5
+#define CS_TEMP1 BIT6
+#define CS_TEMP2 BIT7
 
 #define TX_START 1
 #define TX_RUNNING 2
@@ -15,7 +17,7 @@
 void Build_Packet(int);
 void TI_CC_Wait(unsigned int);
 void SPI_Setup(void);
-void Reset_Radios(void);
+void Reset_Radio(char);
 void Radio_Strobe(char, char);
 void Radio_Write_Registers(char, char, char);
 void Radio_Write_Burst_Registers(char, char *, int, char);
@@ -25,3 +27,4 @@ char Radio_Read_Status(char, char);
 char RF_Receive_Packet(char *, char *, char);
 void RF_Send_Packet(char *, int, char);
 void Write_RF_Settings(void);
+void SD_Card_Setup(void);

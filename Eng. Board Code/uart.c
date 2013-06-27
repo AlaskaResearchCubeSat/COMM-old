@@ -9,25 +9,25 @@ void initUART(void){
   memset(&TxBuf,0,sizeof(TxBuf));
   memset(&RxBuf,0,sizeof(RxBuf));
   TxBuf.done=0;
-   //setup UCA0 for USB-UART operation
-  UCA0CTL1=UCSWRST;
-  UCA0CTL0=0;
-  UCA0CTL1|=UCSSEL_1;
-  //UCA0CTL1|=UCSSEL_2;
+   //setup UCA1 for USB-UART operation
+  UCA1CTL1=UCSWRST;
+  UCA1CTL0=0;
+  UCA1CTL1|=UCSSEL_1;
+  //UCA1CTL1|=UCSSEL_2;
  //set baud rate to 9600
-  UCA0BR0=3;
-  UCA0BR1=0;
-  UCA0MCTL=UCBRS_3;
+  UCA1BR0=3;
+  UCA1BR1=0;
+  UCA1MCTL=UCBRS_3;
  //set baud rate to 34400
-//  UCA0BR0=26;
-//  UCA0BR1=0;
-//  UCA0MCTL=UCBRF_1|UCOS16;
+//  UCA1BR0=26;
+//  UCA1BR1=0;
+//  UCA1MCTL=UCBRF_1|UCOS16;
   //setup pins
-  P3SEL|=BIT4|BIT5;
-  //take UCA0 out of reset mode
-  UCA0CTL1&=~UCSWRST;
+  P3SEL|=BIT6|BIT7;
+  //take UCA1 out of reset mode
+  UCA1CTL1&=~UCSWRST;
   //enable interupts
-  UC0IE|=UCA0TXIE|UCA0RXIE;
+  UC1IE|=UCA1TXIE|UCA1RXIE;
 }
 
 //queue byte to get transmitted
@@ -40,7 +40,7 @@ int TxChar(unsigned char c){
 	//check if transmitting
 	if(TxBuf.done){
 		//bypass queue for first byte if not transmitting
-		UCA0TXBUF=c;
+		UCA1TXBUF=c;
 		//clear done flag
 		TxBuf.done=0;
 	//queue byte

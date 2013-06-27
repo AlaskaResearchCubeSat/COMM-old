@@ -21,7 +21,7 @@ extern char RxBuffer[258];
 extern char message;
 extern int RxPktLength;
 extern unsigned int index;
-extern int j, d, Tx_Flag, TxBufferSize, data_length, buffer_position, packet_length;
+extern int j, Tx_Flag, TxBufferSize, data_length, buffer_position, packet_length;
 extern char paTable_CC1101[];
 extern char paTable_CC2500[];
 extern char paTableLen;

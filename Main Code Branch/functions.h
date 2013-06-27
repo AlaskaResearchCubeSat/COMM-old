@@ -12,7 +12,7 @@
 #define RX_START     3
 #define RX_RUNNING   4
 #define CC1101_GDO0  BIT0
-#define CC1101_GDO2  BIT1
+#define CC1101_GDO2  BIT2
 #define CC2500_GDO0  BIT3
 #define CC2500_GDO2  BIT4
 #define RF_SW1       BIT0
@@ -29,7 +29,7 @@ void radio_interrupts(void);
 void Build_Packet(int);
 void TI_CC_Wait(unsigned int);
 void SPI_Setup(void);
-void Reset_Radios(void);
+void Reset_Radio(char);
 void Radio_Strobe(char, char);
 void Radio_Write_Registers(char, char, char);
 void Radio_Write_Burst_Registers(char, char *, int, char);
@@ -38,6 +38,6 @@ void Radio_Read_Burst_Registers(char, char *, int, char);
 char Radio_Read_Status(char, char);
 char RF_Receive_Packet(char *, char *, char);
 void RF_Send_Packet(char *, int, char);
-void Write_RF_Settings(void);
+void Write_RF_Settings(char);
 
 #endif

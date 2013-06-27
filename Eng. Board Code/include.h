@@ -18,7 +18,7 @@
 
 extern char TxBuffer[258];
 extern char RxBuffer[258];
-extern char message;
+extern char message, radio;
 extern int RxPktLength;
 extern unsigned int index;
 extern int j, Tx_Flag, TxBufferSize, data_length, buffer_position, packet_length;

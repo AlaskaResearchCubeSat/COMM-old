@@ -24,8 +24,8 @@ extern CTL_EVENT_SET_t radio_event_flags;
 
 extern char TxBuffer[900];
 extern char RxBuffer[900];
-extern char uhf, temp_count1, temp_count2, button, RxBufferLen;
-extern unsigned int data_length, count, state, k, i, TxID, TxNum;
+extern char uhf, temp_count1, temp_count2, button, RxBufferLen, radio;
+extern unsigned int data_length, count, state, k, i, TxID, TxNum, end;
 extern unsigned int TxBufferLen, TxBufferPos, TxBytesRemaining, TxThrBytes;
 extern unsigned int RxBufferPos, RxBytesRemaining, RxFIFOLen, RxThrBytes, small_packet,  PktLenUpper, PktLenLower, PktLen;
 extern BOOL INFINITE;

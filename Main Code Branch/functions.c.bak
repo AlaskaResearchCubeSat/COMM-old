@@ -35,22 +35,15 @@ TxBuffer[data_length - 1] = 0xF0;
 
 void radio_interrupts(void)
 {
-//Enable interrupts on Port 2
-//2.0 -- GDO0  CC1101
-//2.1 -- GDO2  CC1101
-//2.3 -- GDO0  CC2500
-//2.4 -- GDO2  CC2500
-P2DIR &= ~(CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);
-P2IE |= CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2;             // Enable ints  
-P2IES &= ~(CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);         // Int on rising edge: GDO0 interrupts when receives sync word
+P2DIR &= ~(CC1101_GDO0 + CC1101_GDO2);
+P2IES &= ~(CC1101_GDO0 + CC1101_GDO2);         // Int on rising edge: GDO0 interrupts when receives sync word
 P2IFG = 0;                                                                 // Clear flags
+P2IE |= CC1101_GDO0 + CC1101_GDO2;             // Enable ints 
 
 //Set up amplifier switches, RF_SW1 for 430 MHz amplifier, RF_SW2 for 2.4 GHz amplifier
 //P6DIR |= RF_SW1 + RF_SW2;                                                  // Set amplifier switches as outputs
 //P6OUT |= (RF_SW1 + RF_SW2);                                               // Disable both amplifiers 
 }
-
-
 
 //Set up the UCB1 SPI channel for writing to the radios
 void SPI_Setup(void)
@@ -76,8 +69,10 @@ void SPI_Setup(void)
   UCB1CTL1 &= ~UCSWRST;                 //Enable UART state machine
 }
 
-void Reset_Radios(void)
+void Reset_Radio(char radio)
 {
+  if (radio)
+  {
   P5OUT |= CS_1101;                   //Toggle CS with delays to power up radio
   TI_CC_Wait(30);
   P5OUT &= ~CS_1101;
@@ -91,7 +86,9 @@ void Reset_Radios(void)
                                             // Strobe addr is now being TX'ed
   while (UCB1STAT & UCBUSY);                // Wait for TX to complete
   P5OUT |= CS_1101;                           // CS disable
+  }
   
+  else{
   P5OUT |= CS_2500;                   //Toggle CS with delays to power up radio
   TI_CC_Wait(30);
   P5OUT &= ~CS_2500;
@@ -105,7 +102,7 @@ void Reset_Radios(void)
                                             // Strobe addr is now being TX'ed
   while (UCB1STAT & UCBUSY);                // Wait for TX to complete
   P5OUT |= CS_2500;                           // CS disable
-
+}
   P2IFG = 0;                                // Clear flags that were set
 }
 
@@ -274,10 +271,10 @@ while(1)
       //}
 
       PktLen = 0;
-      P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
-      P2IES |= (BIT0);                                                                   // Change GDO0 interrupt to trigger on falling edge so the end of the packet can be detected 
-      P2IFG &= ~BIT0;                                                                    // Clear flags
-      P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
+      P2IE &= ~(CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);                         // Disable Port 2 interrupts
+      P2IES |= (CC1101_GDO0);                                                                   // Change GDO0 interrupt to trigger on falling edge so the end of the packet can be detected 
+      P2IFG &= ~CC1101_GDO0;                                                                    // Clear flags
+      P2IE |= CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2;                            // Enable Port 2 interrupts
   }
   
   if(e & CC1101_EV_RX_THR)
@@ -351,6 +348,8 @@ while(1)
    if (small_packet)
    {
      RxFIFOLen = (Radio_Read_Status(TI_CCxxx0_RXBYTES, CC1101) & TI_CCxxx0_NUM_RXBYTES);
+     if (RxFIFOLen != 0)
+     {    
      PktLen = RxFIFOLen - 2;
      Radio_Read_Burst_Registers(TI_CCxxx0_RXFIFO, RxBuffer+RxBufferPos, RxFIFOLen, CC1101);
      P7OUT ^= BIT1;
@@ -363,6 +362,7 @@ while(1)
         printf("\r\n");
      }        
      printf("\r\n");
+     }
    }
    
    // The default case, for packets > RxBytesThr.
@@ -383,10 +383,10 @@ while(1)
    }        
    printf("\r\n");
    state = IDLE;
-   P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
-   P2IES &= ~(BIT0);                                                                  // Change GDO0 edge back to rising to prepare for next sync word
-   P2IFG &= ~BIT0;                                                                    // Clear flags
-   P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
+   P2IE &= ~(CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);                                              // Disable Port 2 interrupts
+   P2IES &= ~(CC1101_GDO0);                                                                  // Change GDO0 edge back to rising to prepare for next sync word
+   P2IFG &= ~CC1101_GDO0;                                                                    // Clear flags
+   P2IE |= CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2;                                                 // Enable Port 2 interrupts
     }
    }
  
@@ -395,11 +395,11 @@ while(1)
    {
           state = TX_START;
           TxBufferPos = 0;
-          P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
+          P2IE &= ~(CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);                                              // Disable Port 2 interrupts
           Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x02, CC1101);                             // Set GDO2 to interrupt on FIFO thresholds
-          P2IES |= (BIT0 + BIT1 + BIT2 + BIT3);                                              // Change edge interrupt happens on
+          P2IES |= (CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);                                              // Change edge interrupt happens on
           P2IFG = 0;                                                                         // Clear flags
-          P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
+          P2IE |= CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2;                                                 // Enable Port 2 interrupts
    
           if (INFINITE)
           {
@@ -442,6 +442,7 @@ while(1)
                  }
                  count = TxThrBytes;
                  TxBytesRemaining = TxBytesRemaining - TxThrBytes;
+
              }
              else
              {
@@ -451,20 +452,7 @@ while(1)
              Radio_Write_Burst_Registers(TI_CCxxx0_TXFIFO, TxBuffer + TxBufferPos, count, CC1101);
              TxBufferPos += count;
              //printf("State: %x ", Radio_Read_Status(TI_CCxxx0_MARCSTATE,CC1101));
-          }
-          if (TxBytesRemaining == 0)
-          {
-                  //P7OUT ^= BIT0;
-                  //printf("%d", temp_count1);
-                  //printf(" packet(s) sent \r\n");
-                  //printf("CC1101 \r\n");
-//                  printf("packet sent \r\n");
-//                  for (k=0; k < TxBufferPos; k++)
-//                 {
-//                     printf("%d ", TxBuffer[k]);
-//                     printf(" ");
-//                 }
-              
+          
           }
  }
           
@@ -483,9 +471,9 @@ while(1)
             
    P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
    Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x00, CC1101);                             // Set GDO2 to interrupt on FIFO thresholds
-   P2IES &= ~(BIT0 + BIT1);                                                           // Change edge interrupt happens on
+   P2IES &= ~(CC1101_GDO0 + CC1101_GDO2);                                                           // Change edge interrupt happens on
    P2IFG = 0;                                                                         // Clear flags        
-   P2IE |= BIT0 + BIT1 + BIT2 + BIT3;           
+   P2IE |= CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2;           
    
    
    // Check for TX FIFO underflow, if yes then flush dat buffer
@@ -547,11 +535,11 @@ while(1)
  
    if(e & CC2500_EV_TX_START)
  {
-          P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
+          P2IE &= ~(CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);                                              // Disable Port 2 interrupts
           Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x02, CC2500);                                // Set GDO2 to interrupt on FIFO thresholds
-          P2IES |= (BIT0 + BIT1 + BIT2 + BIT3);                                              // Change edge interrupt happens on
+          P2IES |= (CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);                                              // Change edge interrupt happens on
           P2IFG = 0;                                                                         // Clear flags
-          P2IE |= BIT0 + BIT1 + BIT2 + BIT3;                                                 // Enable Port 2 interrupts
+          P2IE |= CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2;                                                 // Enable Port 2 interrupts
           Build_Packet(data_length);
           if (TxBytesRemaining > 64)
           {
@@ -600,11 +588,11 @@ while(1)
 //                     printf(" ");
 //                 } 
 
-              P2IE &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Disable Port 2 interrupts
+              P2IE &= ~(CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);                                              // Disable Port 2 interrupts
               Radio_Write_Registers(TI_CCxxx0_IOCFG2, 0x00, CC2500);                                // Set GDO2 to interrupt on FIFO thresholds
-              P2IES &= ~(BIT0 + BIT1 + BIT2 + BIT3);                                              // Change edge interrupt happens on
+              P2IES &= ~(CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2);                                              // Change edge interrupt happens on
               P2IFG = 0;                                                                         // Clear flags
-              P2IE |= BIT0 + BIT1 + BIT2 + BIT3; 
+              P2IE |= CC1101_GDO0 + CC1101_GDO2 + CC2500_GDO0 + CC2500_GDO2; 
           }
  }
   }
@@ -638,23 +626,26 @@ void sub_events(void *p) __toplevel{
       printf("time ticker = %li\r\n",get_ticker_time());
     }
     if(e&SUB_EV_SPI_DAT){
-      puts("SPI data recived:\r");
+      
       //get length add two for length bytes
-      len=arcBus_stat.spi_stat.len + 2;
-      //print out data
-      for(i=0; i < (len - 2); i++){
-        //printf("0x%02X ",rx[i]);
-        printf("%03i ",arcBus_stat.spi_stat.rx[i]);
-      }
-      printf("\r\n");
-     
+      len=arcBus_stat.spi_stat.len + 2;     
+          
      TxBuffer[0] = len >> 8;
      TxBuffer[1] = len;
      
-     for (i=0; i < (len - 2); i++)
+     for (i=0; i < arcBus_stat.spi_stat.len; i++)
       {
         TxBuffer[i+2] = arcBus_stat.spi_stat.rx[i];
       }
+     
+     TxBuffer[len-1] = 0x7E;
+     
+      printf("Data to be transmitted: \r\n");
+      for (i=0; i < len; i++)
+     {
+       printf("%03i ", TxBuffer[i]);
+     }
+     printf("\r\n");
      
       TxBytesRemaining = len;
      
@@ -664,7 +655,8 @@ void sub_events(void *p) __toplevel{
       }
      
      ctl_events_set_clear(&radio_event_flags,CC1101_EV_TX_START,0);
-    
+    //free buffer
+      BUS_free_buffer_from_event();
    }
     if(e&SUB_EV_SPI_ERR_CRC){
       puts("SPI bad CRC\r");
@@ -672,41 +664,18 @@ void sub_events(void *p) __toplevel{
   }
 }
 
-void Write_RF_Settings(void)
+void Write_RF_Settings(char radio)
 {
-// CC1101
-// Deviation = 5.157471 
-// Base frequency = 432.999817 
-// Carrier frequency = 432.999817 
-// Channel number = 0 
-// Carrier frequency = 432.999817 
-// Modulated = true 
-// Modulation format = GFSK 
-// Manchester enable = false 
-// Sync word qualifier mode = 30/32 sync word bits detected 
-// Preamble count = 4 
-// Channel spacing = 199.951172 kHz
-// Carrier frequency = 432.999817 MHz
-// Data rate = 9.59587 kbps
-// RX filter BW = 58.035714 
-// Data format = Normal mode 
-// Length config = Variable packet length mode. Packet length configured by the first byte after sync word 
-// CRC enable = true 
-// Packet length = 255 
-// Device address = 0 
-// Address config = No address check 
-// CRC autoflush = false 
-// PA ramping = false 
-// TX power = 0
-Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 1);   // Asserts when sync word has been sent / received, and de-asserts at the end of the packet. 
+if (radio){
+//Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x3F, 1);   // Asserts when sync word has been sent / received, and de-asserts at the end of the packet. 
 Radio_Write_Registers(TI_CCxxx0_IOCFG2,   0x00, 1);   // Associated to the RX FIFO: Asserts when RX FIFO is filled at or above the RX FIFO threshold. De-asserts when RX FIFO is drained below the same threshold.
 Radio_Write_Registers(TI_CCxxx0_FIFOTHR,  0x07, 1);   // FIFO Threshold
 Radio_Write_Registers(TI_CCxxx0_FSCTRL0,  0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_FSCTRL1,  0x06, 1);
 Radio_Write_Registers(TI_CCxxx0_FREQ2,    0x10, 1);
-Radio_Write_Registers(TI_CCxxx0_FREQ1,    0xA7, 1);   // 10, A7, 62 = 433 MHz;  10, C4, EC = 436 MHz 
+Radio_Write_Registers(TI_CCxxx0_FREQ1,    0xA7, 1);   // 10, A7, 62 = 433 MHz;  10, C4, EC = 436 MHz; 10, BB, 13 = 435 MHz 
 Radio_Write_Registers(TI_CCxxx0_FREQ0,    0x62, 1);
-Radio_Write_Registers(TI_CCxxx0_MDMCFG4,  0xF8, 1);
+Radio_Write_Registers(TI_CCxxx0_MDMCFG4,  0xF5, 1);   // F5 = 1200 baud, F8 = 9600 baud
 Radio_Write_Registers(TI_CCxxx0_MDMCFG3,  0x83, 1);
 Radio_Write_Registers(TI_CCxxx0_MDMCFG2,  0x03, 1); // High byte: 0000 is 2-FSK and 0001 is GFSK; Low byte: 0000 no preamble/sync, 0001 15/16 sync words detected, 0011 30/32 sync words
 Radio_Write_Registers(TI_CCxxx0_MDMCFG1,  0x22, 1); // High byte: 0010 is 4 bytes of preamble, 0100 is 8 bytes of preamble
@@ -734,8 +703,10 @@ Radio_Write_Registers(TI_CCxxx0_PKTCTRL1, 0x00, 1);
 Radio_Write_Registers(TI_CCxxx0_PKTCTRL0, 0x00, 1);      // Fixed packet length mode set
 Radio_Write_Registers(TI_CCxxx0_PKTLEN,   0xFF, 1);      // Packet length set for fixed packet length mode
 Radio_Write_Registers(TI_CCxxx0_ADDR,     0x00, 1);
+Radio_Write_Registers(TI_CCxxx0_SYNC1,    0x7E, 1);
+}
 
-
+else{
 
 // Write CC2500 register settings
 Radio_Write_Registers(TI_CCxxx0_IOCFG0,   0x06, 0);  // GDO0 output pin config.
@@ -773,5 +744,6 @@ Radio_Write_Registers(TI_CCxxx0_FSCAL0,   0x11, 0);  // Frequency synthesizer ca
 Radio_Write_Registers(TI_CCxxx0_FSTEST,   0x59, 0);  // Frequency synthesizer cal.
 Radio_Write_Registers(TI_CCxxx0_TEST2,    0x88, 0);  // Various test settings.
 Radio_Write_Registers(TI_CCxxx0_TEST1,    0x31, 0);  // Various test settings.
-Radio_Write_Registers(TI_CCxxx0_TEST0,    0x0B, 0);  // Various test settings.    
+Radio_Write_Registers(TI_CCxxx0_TEST0,    0x0B, 0);  // Various test settings.   
+ }
 }

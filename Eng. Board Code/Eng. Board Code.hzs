@@ -2,9 +2,10 @@
 <session>
  <Bookmarks/>
  <Breakpoints>
-  <BreakpointListItem line="10" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code\main.c" expression="" />
+  <BreakpointListItem line="295" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\Git\ASGP\COMM\Eng. Board Code\functions.c" expression="" />
+  <BreakpointListItem line="10" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code\main.c" expression="" />
+  <BreakpointListItem line="50" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code\main.c" expression="" />
   <BreakpointListItem line="50" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="4" counter="0" isFunctionBreakpoint="false" filename="Z:\Software\COMM\Comm System 2618\Eng. Board Code\main.c" expression="" />
-  <BreakpointListItem line="50" action="" hardwareBreakpoint="" trigger="" useHWbreakpoint="false" group="Breakpoints" type="Breakpoint" state="2" counter="0" isFunctionBreakpoint="false" filename="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code\main.c" expression="" />
  </Breakpoints>
  <EEMRegistersWindow>
   <EEMRegisters moduleClockControl="60d7" generalClockControl="2e" />
@@ -35,17 +36,18 @@
   <ProjectSessionItem path="Eng. Board Code;Eng. Board Code;Source Files" name="unnamed" />
  </Project>
  <Register1>
-  <RegisterWindow openNodes="SFR/IFG1;Timer_A3;Timer_A3/TACTL" binaryNodes="" unsignedNodes="" visibleGroups="UCSI_B1 SPI Mode;SFR;Timer_A3" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="SFR/IFG1;Timer_A3;Timer_A3/TACTL" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="UCSI_B1 SPI Mode;SFR;Timer_A3" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register1>
  <Register2>
-  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register2>
  <Register3>
-  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register3>
  <Register4>
-  <RegisterWindow openNodes="" binaryNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
+  <RegisterWindow openNodes="" binaryNodes="" hiddenNodes="" unsignedNodes="" visibleGroups="" decimalNodes="" octalNodes="" asciiNodes="" />
  </Register4>
+ <TargetWindow programAction="" uploadFileType="" programLoadAddress="" programSize="" uploadFileName="" uploadMemoryInterface="" programFileName="" uploadStartAddress="" programFileType="" uploadSize="" programMemoryInterface="" />
  <TraceWindow>
   <Trace enabled="Yes" />
  </TraceWindow>
@@ -64,8 +66,19 @@
   <Watches active="0" update="Never" />
  </Watch4>
  <Files>
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\main.c" y="0" path="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\main.c" left="0" selected="0" name="unnamed" top="0" />
-  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\radio_interrupts.c" y="20" path="C:\Users\Standard\Documents\GitHub\COMM\Eng. Board Code\radio_interrupts.c" left="0" selected="1" name="unnamed" top="20" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\main.c" y="66" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\main.c" left="0" selected="1" name="unnamed" top="27" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\include.c" y="11" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\include.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\include.h" y="20" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\include.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\functions.c" y="294" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\functions.c" left="0" selected="0" name="unnamed" top="267" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\functions.h" y="19" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\functions.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\uart.c" y="25" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\uart.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\uart.h" y="0" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\uart.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\UCint.c" y="30" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\UCint.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\terminal.c" y="0" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\terminal.c" left="0" selected="0" name="unnamed" top="57" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\terminal.h" y="18" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\terminal.h" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\Radio_Registers.h" y="84" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\Radio_Registers.h" left="0" selected="0" name="unnamed" top="48" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\radio_interrupts.c" y="20" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\radio_interrupts.c" left="0" selected="0" name="unnamed" top="0" />
+  <SessionOpenFile useTextEdit="1" useBinaryEdit="0" codecName="Latin1" x="0" debugPath="Z:\Software\Git\ASGP\COMM\Eng. Board Code\initialize_clk.c" y="14" path="Z:\Software\Git\ASGP\COMM\Eng. Board Code\initialize_clk.c" left="0" selected="0" name="unnamed" top="0" />
  </Files>
- <MSP430CrossStudioWindow activeProject="Eng. Board Code" autoConnectTarget="TI MSP-FET430UIF (JTAG)" debugSearchFileMap="" fileDialogInitialDirectory="C:\Users\Standard\Documents\CrossWorks Projects\Comm System 2618\Eng. Board Code" fileDialogDefaultFilter="*.c" autoConnectCapabilities="1407" debugSearchPath="" buildConfiguration="MSP430 Debug" />
+ <MSP430CrossStudioWindow activeProject="Eng. Board Code" autoConnectTarget="TI MSP-FET430UIF (JTAG)" debugSearchFileMap="" fileDialogInitialDirectory="Z:\Software\CDH\CDH_test" fileDialogDefaultFilter="*.c" autoConnectCapabilities="3455" debugSearchPath="" buildConfiguration="MSP430 Debug" />
 </session>
