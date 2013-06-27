@@ -21,7 +21,7 @@ void main(void)
   // Sets up peripherals for the ARCbus and initializes the tasking library. COMM I2C address as the argument
   initARCbus(BUS_ADDR_COMM);
   
-  // Sets up the radio's SPI 
+  // Sets up the radios SPI 
   SPI_Setup();    
 
   // Set up the GDO interrupts for the radios and also the output pins for PA switches, use with engineering board
